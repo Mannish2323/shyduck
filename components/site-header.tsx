@@ -29,7 +29,6 @@ export function SiteHeader() {
     toggleTheme,
     unreadNotificationsCount,
     openSearch,
-    loginAs,
     logout
   } = useShyduck();
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
@@ -300,36 +299,6 @@ export function SiteHeader() {
                       Role: {user.role.toUpperCase()}
                     </span>
                   )}
-                </div>
-
-                {/* Role switcher for easy beta testing */}
-                <div style={{ padding: '8px 12px', borderBottom: '1px solid var(--line)' }}>
-                  <div style={{ fontSize: '0.68rem', textTransform: 'uppercase', color: 'var(--text-subtle)', fontWeight: 700, marginBottom: '6px' }}>
-                    Switch Demo View:
-                  </div>
-                  <div style={{ display: 'flex', gap: '4px' }}>
-                    {(['reader', 'writer', 'admin'] as const).map((r) => (
-                      <button
-                        key={r}
-                        onClick={() => {
-                          loginAs(r);
-                          setProfileMenuOpen(false);
-                        }}
-                        style={{
-                          flex: 1,
-                          fontSize: '0.72rem',
-                          padding: '4px',
-                          borderRadius: '4px',
-                          border: user?.role === r ? '1px solid var(--gold)' : '1px solid var(--line)',
-                          backgroundColor: user?.role === r ? 'var(--gold-subtle)' : 'transparent',
-                          color: user?.role === r ? 'var(--gold)' : 'var(--text-muted)',
-                          textTransform: 'capitalize'
-                        }}
-                      >
-                        {r}
-                      </button>
-                    ))}
-                  </div>
                 </div>
 
                 <div style={{ padding: '4px 0' }}>

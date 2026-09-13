@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { 
   BookOpen, 
   Feather, 
-  Sparkles, 
   Check, 
   ArrowRight, 
   Compass 
@@ -19,7 +18,7 @@ export default function OnboardingPage() {
   const { loginAs, addToast } = useShyduck();
 
   const [step, setStep] = useState<1 | 2>(1);
-  const [intent, setIntent] = useState<"read" | "write" | "both">("both");
+  const [intent, setIntent] = useState<"reader" | "writer" | null>(null);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([
     "Fantasy",
     "Sci-Fi",
@@ -35,12 +34,22 @@ export default function OnboardingPage() {
   };
 
   const handleFinishOnboarding = () => {
-    if (intent === "write") {
-      loginAs("writer");
+    if (!intent) return;
+
+    let profile: { username?: string; email?: string; name?: string } = {};
+    try {
+      const pending = localStorage.getItem("shyduck_pending_profile");
+      if (pending) profile = JSON.parse(pending);
+      localStorage.removeItem("shyduck_pending_profile");
+    } catch {
+      // Continue with the safe local preview profile if storage is unavailable.
+    }
+
+    loginAs(intent, { ...profile, preferredGenres: selectedGenres });
+    if (intent === "writer") {
       addToast("Welcome to Writer Studio!", "Your creator canvas is prepared.", "success");
       router.push("/write");
     } else {
-      loginAs("reader");
       addToast("Welcome to Shyduck Tales!", "Recommendations tuned to your preferred genres.", "success");
       router.push("/discover");
     }
@@ -76,32 +85,26 @@ export default function OnboardingPage() {
           <div className="space-y-6">
             <div className="space-y-1.5 text-center sm:text-left">
               <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#fbf7ef]">
-                What brings you to our sky?
+                Choose how you want to use Shyduck Tales
               </h1>
               <p className="text-xs sm:text-sm text-[#8c91a8]">
-                Select your primary craft so we can tailor your workspace and reading shelf.
+                Choose your primary Shyduck Tales experience. You can change this later in account settings.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 {
-                  id: "read",
-                  label: "Read Stories",
-                  desc: "Immerse in serialized novels, follow creators, and save chapters.",
+                  id: "reader",
+                  label: "Reader",
+                  desc: "Read stories, follow authors, save books and join the community.",
                   icon: BookOpen
                 },
                 {
-                  id: "write",
-                  label: "Write Stories",
-                  desc: "Draft chapters, build characters, and publish to an audience.",
+                  id: "writer",
+                  label: "Writer",
+                  desc: "Write stories, publish chapters, build your audience and manage your worlds.",
                   icon: Feather
-                },
-                {
-                  id: "both",
-                  label: "Both",
-                  desc: "Read by daylight, spin original worlds by candlelight.",
-                  icon: Sparkles
                 }
               ].map((item) => {
                 const Icon = item.icon;
@@ -111,7 +114,7 @@ export default function OnboardingPage() {
                   <button
                     key={item.id}
                     type="button"
-                    onClick={() => setIntent(item.id as any)}
+                    onClick={() => setIntent(item.id as "reader" | "writer")}
                     className={`p-5 rounded-2xl border text-left transition-all flex flex-col justify-between space-y-3 ${
                       isSelected
                         ? "bg-[#181a30] border-[#e9b65a] shadow-lg shadow-[#e9b65a]/10"
@@ -144,7 +147,8 @@ export default function OnboardingPage() {
             <div className="pt-4 flex justify-end">
               <button
                 onClick={() => setStep(2)}
-                className="button button-primary px-7 py-3 text-xs font-semibold flex items-center space-x-2"
+                disabled={!intent}
+                className="button button-primary px-7 py-3 text-xs font-semibold flex items-center space-x-2 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <span>Continue</span>
                 <ArrowRight className="w-4 h-4" />

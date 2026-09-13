@@ -16,7 +16,7 @@ import { ShyduckMascot } from "@/components/shyduck-mascot";
 
 export default function SignupPage() {
   const router = useRouter();
-  const { loginAs, addToast } = useShyduck();
+  const { addToast } = useShyduck();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -30,9 +30,16 @@ export default function SignupPage() {
 
     setIsLoading(true);
     setTimeout(() => {
-      loginAs("writer");
+      localStorage.setItem(
+        "shyduck_pending_profile",
+        JSON.stringify({
+          username: username.trim().toLowerCase(),
+          email: email.trim(),
+          name: username.trim(),
+        })
+      );
       setIsLoading(false);
-      addToast("Account created!", "Let's personalize your storytelling journey.", "success");
+      addToast("Account details saved", "Choose your primary Shyduck Tales experience next.", "success");
       router.push("/onboarding");
     }, 600);
   };

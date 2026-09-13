@@ -119,7 +119,7 @@ export default function WriterDashboardPage() {
             <BarChart3 className="w-4 h-4 text-emerald-400" />
           </div>
           <div className="text-2xl font-bold font-serif text-[#fbf7ef]">
-            {WRITER_ANALYTICS.completionRate}%
+            {WRITER_ANALYTICS.completionRate ?? WRITER_ANALYTICS.avgCompletionRate}%
           </div>
           <span className="text-[10px] text-[#e9b65a] font-semibold">
             Top 5% of serialized fiction

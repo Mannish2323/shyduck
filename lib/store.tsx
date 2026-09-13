@@ -12,11 +12,11 @@ import {
   ReaderSettings,
   ToastMessage
 } from './types';
-import { STORIES, CHAPTERS, COMMENTS, NOTIFICATIONS } from './mock-data';
+import { STORIES, CHAPTERS, COMMENTS } from './mock-data';
 
 interface ShyduckContextType {
   user: User | null;
-  loginAs: (role: 'reader' | 'writer' | 'admin') => void;
+  loginAs: (role: 'reader' | 'writer' | 'admin', profile?: Partial<Pick<User, 'name' | 'username' | 'email' | 'bio' | 'preferredGenres'>>) => void;
   logout: () => void;
   theme: 'dark' | 'light';
   toggleTheme: () => void;
@@ -75,15 +75,15 @@ interface ShyduckContextType {
 }
 
 const DEFAULT_USER: User = {
-  id: 'usr-manish-23',
-  name: 'Manish Kumar',
-  username: 'manish_writer',
-  email: 'manish@shyduck.io',
+  id: 'local-preview-user',
+  name: 'Creator',
+  username: 'creator',
+  email: '',
   avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
   role: 'writer',
-  bio: 'Storyteller exploring cosmic myths and subcontinent speculative fiction. Creator at Shyduck Tales.',
-  joinedDate: 'Joined September 2025',
-  preferredGenres: ['Fantasy', 'Sci-Fi', 'Mystery']
+  bio: '',
+  joinedDate: 'New to Shyduck Tales',
+  preferredGenres: []
 };
 
 const DEFAULT_READER_SETTINGS: ReaderSettings = {
@@ -100,31 +100,14 @@ export function ShyduckProvider({ children }: { children: ReactNode }) {
   const [isMounted, setIsMounted] = useState(false);
   const [user, setUser] = useState<User | null>(DEFAULT_USER);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
-  const [bookmarks, setBookmarks] = useState<string[]>(['the-last-dragon', 'echoes-of-aether']);
-  const [followingAuthors, setFollowingAuthors] = useState<string[]>(['mirasen']);
-  const [readingProgress, setReadingProgress] = useState<Record<string, ReadingProgress>>({
-    'the-last-dragon': {
-      storySlug: 'the-last-dragon',
-      chapterSlug: 'chapter-01-the-shifting-vellum',
-      chapterNumber: 1,
-      percentage: 65,
-      lastReadAt: '1 hour ago'
-    }
-  });
-  const [readingLists, setReadingLists] = useState<ReadingList[]>([
-    {
-      id: 'list-1',
-      name: 'Weekend Monsoon Reads',
-      description: 'Stories with rain, deep lore, and cozy worldbuilding.',
-      storySlugs: ['the-last-dragon', 'echoes-of-aether', 'the-clockwork-city'],
-      isPrivate: false,
-      createdAt: '2026-08-15'
-    }
-  ]);
+  const [bookmarks, setBookmarks] = useState<string[]>([]);
+  const [followingAuthors, setFollowingAuthors] = useState<string[]>([]);
+  const [readingProgress, setReadingProgress] = useState<Record<string, ReadingProgress>>({});
+  const [readingLists, setReadingLists] = useState<ReadingList[]>([]);
   const [stories, setStories] = useState<Story[]>(STORIES);
   const [chapters, setChapters] = useState<Record<string, Chapter[]>>(CHAPTERS);
   const [comments, setComments] = useState<Comment[]>(COMMENTS);
-  const [notifications, setNotifications] = useState<NotificationItem[]>(NOTIFICATIONS);
+  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [readerSettings, setReaderSettings] = useState<ReaderSettings>(DEFAULT_READER_SETTINGS);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
@@ -190,11 +173,12 @@ export function ShyduckProvider({ children }: { children: ReactNode }) {
     addToast(`Switched to ${next === 'dark' ? 'Midnight Dark' : 'Daylight'} mode`);
   };
 
-  const loginAs = (role: 'reader' | 'writer' | 'admin') => {
+  const loginAs = (role: 'reader' | 'writer' | 'admin', profile: Partial<Pick<User, 'name' | 'username' | 'email' | 'bio' | 'preferredGenres'>> = {}) => {
     setUser({
       ...DEFAULT_USER,
+      ...profile,
       role,
-      name: role === 'admin' ? 'Admin Console' : DEFAULT_USER.name
+      name: profile.name || (role === 'admin' ? 'Admin Console' : DEFAULT_USER.name)
     });
     addToast(`Logged in as ${role.toUpperCase()}`, 'Welcome to Shyduck Tales!');
   };

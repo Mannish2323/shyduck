@@ -97,7 +97,7 @@ export default function StoryAnalyticsPage() {
             <Award className="w-4 h-4 text-amber-400" />
           </div>
           <div className="text-2xl font-serif font-bold text-[#fbf7ef]">
-            {analytics.completionRate}%
+            {analytics.completionRate ?? analytics.avgCompletionRate}%
           </div>
           <span className="text-[10px] text-[#e9b65a] font-semibold">
             Strong reader loyalty

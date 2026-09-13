@@ -590,6 +590,7 @@ export const WRITER_ANALYTICS: WriterAnalytics = {
   bookmarksCount: 32400,
   commentsCount: 4890,
   avgCompletionRate: 78.4,
+  completionRate: 78.4,
   dailyReads: [
     { date: 'Mon', reads: 3200 },
     { date: 'Tue', reads: 4100 },
@@ -604,6 +605,24 @@ export const WRITER_ANALYTICS: WriterAnalytics = {
     { chapter: 'Ch. 2', views: 68000, completion: 86 },
     { chapter: 'Ch. 3', views: 54000, completion: 81 },
     { chapter: 'Ch. 4', views: 44900, completion: 76 },
+  ],
+  readsOverTime: [
+    { date: 'Apr 2026', reads: 42000 },
+    { date: 'May 2026', reads: 88000 },
+    { date: 'Jun 2026', reads: 135000 },
+    { date: 'Jul 2026', reads: 172000 },
+    { date: 'Aug 2026', reads: 215000 },
+    { date: 'Sep 2026', reads: 248900 },
+  ],
+  chapterDropoff: [
+    { chapterNumber: 1, views: 248900 },
+    { chapterNumber: 2, views: 221000 },
+    { chapterNumber: 3, views: 198500 },
+    { chapterNumber: 4, views: 184200 },
+    { chapterNumber: 5, views: 175000 },
+    { chapterNumber: 6, views: 168900 },
+    { chapterNumber: 7, views: 161200 },
+    { chapterNumber: 8, views: 154000 },
   ]
 };
 
