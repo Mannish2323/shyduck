@@ -16,29 +16,22 @@ import {
 } from "lucide-react";
 import { useShyduck } from "@/lib/store";
 import { UIModal } from "@/components/ui-modal";
+import { WriterStoryGate } from "@/components/creator-space";
 
 export default function StoryWorldPage() {
   const params = useParams();
   const storyId = (params?.id as string) || "";
-  const { stories, addToast } = useShyduck();
+  const { user, stories, addToast } = useShyduck();
 
-  const story = stories.find((s) => s.id === storyId || s.slug === storyId) || stories[0];
+  const story = stories.find((s) => user?.role === "writer" && s.author.username === user.username && (s.id === storyId || s.slug === storyId));
 
   const [activeSubTab, setActiveSubTab] = useState<"locations" | "factions" | "lore" | "timeline">("locations");
 
   // Local state for lore sections
-  const [locations, setLocations] = useState(story?.world?.locations || [
-    { name: "Sundarban Sea Citadel", type: "Capital City", description: "Carved out of petrified mangroves and saltwater stone, connected by swaying glass rope-bridges." }
-  ]);
-  const [factions, setFactions] = useState(story?.world?.factions || [
-    { name: "The Imperial Guild of Mapmakers", motive: "Preservation of trade secrets", description: "Scholars who hold monopoly over navigation and the suppressed dragon prophecies." }
-  ]);
-  const [loreItems, setLoreItems] = useState(story?.world?.loreItems || [
-    { title: "The Living Vellum", category: "Artifact", description: "Parchment harvested from moon-reeds that bleeds genuine seawater when punctured." }
-  ]);
-  const [timeline, setTimeline] = useState(story?.world?.timeline || [
-    { era: "Year 0", event: "The Binding Accord", description: "Dragons were lured into volcanic dormancy by the Seven Sages." }
-  ]);
+  const [locations, setLocations] = useState(story?.world?.locations || []);
+  const [factions, setFactions] = useState(story?.world?.factions || []);
+  const [loreItems, setLoreItems] = useState(story?.world?.loreItems || []);
+  const [timeline, setTimeline] = useState(story?.world?.timeline || []);
 
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -66,6 +59,8 @@ export default function StoryWorldPage() {
     setIsModalOpen(false);
     addToast("World Entry Added!", `New ${activeSubTab.slice(0, -1)} recorded into story encyclopedia.`, "success");
   };
+
+  if (!story) return <WriterStoryGate title="That story is not in your studio." description="Worldbuilding entries are private creator data and can only be opened for a story you own." />;
 
   return (
     <div className="w-full min-h-screen py-10 shell max-w-4xl space-y-8">

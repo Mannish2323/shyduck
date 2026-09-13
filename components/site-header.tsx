@@ -38,7 +38,13 @@ export function SiteHeader() {
     { href: '/discover', label: 'Discover', icon: Compass },
     { href: '/genres', label: 'Genres', icon: Sparkles },
     { href: '/community', label: 'Community', icon: Users },
-    { href: '/write', label: 'Write', icon: PenSquare, highlight: true },
+    { 
+      href: '/write', 
+      label: 'Write', 
+      isCreator: user?.role === 'writer',
+      icon: PenSquare, 
+      highlight: true 
+    },
   ];
 
   return (
@@ -144,6 +150,23 @@ export function SiteHeader() {
               >
                 <item.icon size={15} />
                 <span>{item.label}</span>
+                {item.isCreator && (
+                  <span
+                    style={{
+                      fontSize: '0.6rem',
+                      fontWeight: 800,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.08em',
+                      backgroundColor: isActive ? 'var(--gold)' : 'rgba(233, 182, 90, 0.16)',
+                      color: isActive ? '#0a0b14' : 'var(--gold)',
+                      padding: '1.5px 6px',
+                      borderRadius: '9999px',
+                      marginLeft: '2px',
+                    }}
+                  >
+                    Studio
+                  </span>
+                )}
               </Link>
             );
           })}

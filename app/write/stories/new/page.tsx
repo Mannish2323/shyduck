@@ -74,8 +74,13 @@ export default function CreateStoryPage() {
       status
     });
 
-    addToast("World created!", `"${newStory.title}" is ready. Now let's write Chapter 1.`, "success");
-    router.push(`/write/stories/${newStory.id}/editor`);
+    if (status === "Draft") {
+      addToast("Draft saved! 📝", `"${newStory.title}" has been saved to your drafts.`);
+      router.push("/write");
+    } else {
+      addToast("World created! 🎉", `"${newStory.title}" is ready. Now let's write Chapter 1.`);
+      router.push(`/write/stories/${newStory.id}/editor`);
+    }
   };
 
   return (
@@ -285,7 +290,7 @@ export default function CreateStoryPage() {
           </div>
 
           {/* Form Actions */}
-          <div className="pt-4 border-t border-[#1c2035] flex items-center justify-between">
+          <div className="pt-4 border-t border-[#1c2035] flex flex-wrap items-center justify-between gap-3">
             <button
               type="button"
               onClick={() => router.push("/write")}
@@ -294,13 +299,26 @@ export default function CreateStoryPage() {
               Cancel
             </button>
 
-            <button
-              type="submit"
-              className="button button-primary px-7 py-3 text-xs font-semibold flex items-center space-x-2 shadow-lg shadow-[#e9b65a]/15"
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>Create Story & Write Chapter 1</span>
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={(e) => {
+                  setStatus("Draft");
+                  handleCreate(e);
+                }}
+                className="button button-secondary px-5 py-2.5 text-xs font-semibold"
+              >
+                Save Draft
+              </button>
+
+              <button
+                type="submit"
+                className="button button-primary px-6 py-2.5 text-xs font-bold flex items-center space-x-2 shadow-lg shadow-[#e9b65a]/15"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Create Story & Write Ch. 1</span>
+              </button>
+            </div>
           </div>
         </form>
 

@@ -28,9 +28,9 @@ export default function SettingsPage() {
     addToast 
   } = useShyduck();
 
-  const [name, setName] = useState(user?.name || "Manish Kumar");
-  const [username, setUsername] = useState(user?.username || "manish_writer");
-  const [bio, setBio] = useState(user?.bio || "Storyteller exploring cosmic myths and subcontinent speculative fiction.");
+  const [name, setName] = useState(user?.name || "");
+  const [username, setUsername] = useState(user?.username || "");
+  const [bio, setBio] = useState(user?.bio || "");
 
   const handleSaveProfile = (e: React.FormEvent) => {
     e.preventDefault();

@@ -1,184 +1,28 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { 
-  ArrowLeft, 
-  BarChart3, 
-  Eye, 
-  Users, 
-  Bookmark, 
-  MessageSquare, 
-  TrendingUp, 
-  Sparkles,
-  Award 
-} from "lucide-react";
+import { ArrowLeft, BarChart3, BookOpen, Eye, Info, Users } from "lucide-react";
 import { useShyduck } from "@/lib/store";
-import { WRITER_ANALYTICS } from "@/lib/mock-data";
 
 export default function StoryAnalyticsPage() {
   const params = useParams();
   const storyId = (params?.id as string) || "";
-  const { stories } = useShyduck();
+  const { user, stories } = useShyduck();
+  const story = stories.find((item) => user?.role === "writer" && item.author.username === user.username && (item.id === storyId || item.slug === storyId));
 
-  const story = stories.find((s) => s.id === storyId || s.slug === storyId) || stories[0];
-  const analytics = WRITER_ANALYTICS;
+  if (!story) {
+    return <main className="shell flex min-h-[70vh] items-center justify-center py-12"><div className="max-w-md rounded-3xl border border-[#2a2e47] bg-[#111322] p-8 text-center"><div className="eyebrow">Creator analytics</div><h1 className="mt-3 font-serif-title text-2xl font-bold text-[#fbf7ef]">That story is not in your studio.</h1><p className="mt-3 text-sm leading-relaxed text-[#949ab2]">Analytics are only available for stories owned by the signed-in writer.</p><Link href="/write" className="button button-primary mt-6 px-5 py-3 text-xs font-bold">Back to studio →</Link></div></main>;
+  }
 
-  return (
-    <div className="w-full min-h-screen py-10 shell max-w-4xl space-y-8">
-      {/* Back Link */}
-      <Link
-        href="/write"
-        className="inline-flex items-center space-x-2 text-xs font-semibold text-[#8b90a6] hover:text-[#e9b65a] transition-colors"
-      >
-        <ArrowLeft className="w-3.5 h-3.5" />
-        <span>Back to Writer Dashboard</span>
-      </Link>
+  return <main className="shell max-w-5xl space-y-8 py-8" aria-labelledby="analytics-title">
+    <Link href="/write" className="inline-flex items-center gap-2 text-xs font-semibold text-[#8b90a6] transition-colors hover:text-[#e9b65a]"><ArrowLeft className="h-3.5 w-3.5" /> Back to Writer Dashboard</Link>
+    <header className="border-b border-[#20243a] pb-6"><div className="eyebrow flex items-center gap-2"><BarChart3 className="h-3.5 w-3.5" /> Story performance</div><h1 id="analytics-title" className="mt-2 font-serif-title text-3xl font-bold text-[#fbf7ef]">{story.title}</h1><p className="mt-2 max-w-xl text-sm leading-relaxed text-[#9399b0]">A truthful view of the audience signals currently attached to this story. No estimates are generated.</p></header>
+    <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4" aria-label="Story metrics"><Metric label="Reads" value={story.readsCount.toLocaleString()} detail={story.readsCount ? "Recorded reads" : "No reads recorded yet"} icon={Eye} /><Metric label="Chapters" value={story.chaptersCount.toString()} detail="From your story record" icon={BookOpen} /><Metric label="Followers" value="—" detail="Audience service not connected" icon={Users} /><Metric label="Completion" value="—" detail="Available after reader events" icon={Info} /></section>
+    <section className="rounded-3xl border border-dashed border-[#343952] bg-[#101222] p-8 text-center"><div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-[#e9b65a]/10 text-[#e9b65a]"><BarChart3 className="h-5 w-5" /></div><h2 className="mt-4 font-serif-title text-xl font-bold text-[#f4f1e8]">Your readership story will appear here.</h2><p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-[#858ba2]">Once a published chapter receives real reader events through Supabase, this space can show reads over time, unique readers and chapter retention.</p><Link href={`/stories/${story.slug}`} className="button button-secondary mt-5 px-4 py-2.5 text-xs font-bold">Preview public story</Link></section>
+  </main>;
+}
 
-      {/* Header */}
-      <div className="space-y-1.5 border-b border-[#1f2338] pb-6">
-        <div className="eyebrow flex items-center space-x-1.5 text-[#e9b65a]">
-          <BarChart3 className="w-3.5 h-3.5" />
-          <span>Performance & Reader Retention</span>
-        </div>
-        <h1 className="text-2xl sm:text-3xl font-serif font-black text-[#fbf7ef]">
-          Analytics: {story?.title}
-        </h1>
-        <p className="text-xs text-[#8c91a8]">
-          Detailed chapter completion data and audience demographics for your serialized world.
-        </p>
-      </div>
-
-      {/* Metrics Row */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl border border-[#222740] bg-[#0d0f1e] space-y-1.5">
-          <div className="flex items-center justify-between text-xs text-[#7e849e]">
-            <span>Total Reads</span>
-            <Eye className="w-4 h-4 text-sky-400" />
-          </div>
-          <div className="text-2xl font-serif font-bold text-[#fbf7ef]">
-            {analytics.totalReads.toLocaleString()}
-          </div>
-          <span className="text-[10px] text-emerald-400 font-semibold">
-            +18.4% this month
-          </span>
-        </div>
-
-        <div className="p-5 rounded-2xl border border-[#222740] bg-[#0d0f1e] space-y-1.5">
-          <div className="flex items-center justify-between text-xs text-[#7e849e]">
-            <span>Unique Readers</span>
-            <Users className="w-4 h-4 text-purple-400" />
-          </div>
-          <div className="text-2xl font-serif font-bold text-[#fbf7ef]">
-            {analytics.uniqueReaders.toLocaleString()}
-          </div>
-          <span className="text-[10px] text-[#8e94ad]">
-            84% mobile readers
-          </span>
-        </div>
-
-        <div className="p-5 rounded-2xl border border-[#222740] bg-[#0d0f1e] space-y-1.5">
-          <div className="flex items-center justify-between text-xs text-[#7e849e]">
-            <span>Library Bookmarks</span>
-            <Bookmark className="w-4 h-4 text-[#e9b65a]" />
-          </div>
-          <div className="text-2xl font-serif font-bold text-[#fbf7ef]">
-            {analytics.bookmarksCount.toLocaleString()}
-          </div>
-          <span className="text-[10px] text-emerald-400 font-semibold">
-            +310 this week
-          </span>
-        </div>
-
-        <div className="p-5 rounded-2xl border border-[#222740] bg-[#0d0f1e] space-y-1.5">
-          <div className="flex items-center justify-between text-xs text-[#7e849e]">
-            <span>Avg Completion</span>
-            <Award className="w-4 h-4 text-amber-400" />
-          </div>
-          <div className="text-2xl font-serif font-bold text-[#fbf7ef]">
-            {analytics.completionRate ?? analytics.avgCompletionRate}%
-          </div>
-          <span className="text-[10px] text-[#e9b65a] font-semibold">
-            Strong reader loyalty
-          </span>
-        </div>
-      </div>
-
-      {/* Reads Over Time Visual Bar Chart */}
-      <div className="p-6 sm:p-8 rounded-3xl border border-[#21263f] bg-[#0e1022] space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="font-serif font-bold text-lg text-[#fbf7ef]">
-              Reads Over Time (Last 6 Months)
-            </h3>
-            <p className="text-xs text-[#7d8299]">
-              Growth trajectory following Chapter 10 release milestone.
-            </p>
-          </div>
-          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#181a2e] text-[#e9b65a] border border-[#282d49]">
-            Cumulative
-          </span>
-        </div>
-
-        <div className="space-y-3 pt-2">
-          {(analytics.readsOverTime || []).map((item) => {
-            const maxReads = 250000;
-            const pct = Math.round((item.reads / maxReads) * 100);
-
-            return (
-              <div key={item.date} className="space-y-1">
-                <div className="flex justify-between text-xs">
-                  <span className="text-[#8e94ab] font-medium">{item.date}</span>
-                  <span className="text-[#fbf7ef] font-mono font-semibold">{item.reads.toLocaleString()} reads</span>
-                </div>
-                <div className="w-full h-3 rounded-full bg-[#16182c] overflow-hidden">
-                  <div
-                    className="h-full bg-gradient-to-r from-[#e9b65a] to-[#d8972e] rounded-full transition-all duration-500"
-                    style={{ width: `${pct}%` }}
-                  />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Chapter Retention & Drop-off Performance */}
-      <div className="p-6 sm:p-8 rounded-3xl border border-[#21263f] bg-[#0e1022] space-y-6">
-        <div>
-          <h3 className="font-serif font-bold text-lg text-[#fbf7ef]">
-            Chapter Readership & Retention Curve
-          </h3>
-          <p className="text-xs text-[#7d8299]">
-            Shows how many readers continue through serialized chapter releases.
-          </p>
-        </div>
-
-        <div className="space-y-3">
-          {(analytics.chapterDropoff || []).map((ch) => {
-            const maxViews = 248900;
-            const pct = Math.round((ch.views / maxViews) * 100);
-
-            return (
-              <div key={ch.chapterNumber} className="flex items-center space-x-4">
-                <span className="w-16 text-xs text-[#8c91aa] font-medium shrink-0">
-                  Ch {ch.chapterNumber.toString().padStart(2, "0")}
-                </span>
-                <div className="flex-1 h-3 rounded-full bg-[#16182c] overflow-hidden">
-                  <div
-                    className="h-full bg-indigo-500 rounded-full"
-                    style={{ width: `${pct}%` }}
-                  />
-                </div>
-                <span className="w-24 text-right text-xs font-mono text-[#cad0e6] shrink-0">
-                  {ch.views.toLocaleString()}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
+function Metric({ label, value, detail, icon: Icon }: { label: string; value: string; detail: string; icon: typeof Eye }) {
+  return <div className="rounded-2xl border border-[#252a43] bg-[#111322] p-4"><div className="flex items-center justify-between text-xs text-[#858ba3]"><span>{label}</span><Icon className="h-4 w-4 text-[#e9b65a]" /></div><div className="mt-3 font-serif-title text-2xl font-bold text-[#fbf7ef]">{value}</div><p className="mt-1 text-[10px] text-[#727890]">{detail}</p></div>;
 }

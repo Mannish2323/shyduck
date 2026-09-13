@@ -14,25 +14,16 @@ import {
 } from "lucide-react";
 import { useShyduck } from "@/lib/store";
 import { UIModal } from "@/components/ui-modal";
+import { WriterStoryGate } from "@/components/creator-space";
 
 export default function StoryCharactersPage() {
   const params = useParams();
   const storyId = (params?.id as string) || "";
-  const { stories, addToast } = useShyduck();
+  const { user, stories, addToast } = useShyduck();
 
-  const story = stories.find((s) => s.id === storyId || s.slug === storyId) || stories[0];
+  const story = stories.find((s) => user?.role === "writer" && s.author.username === user.username && (s.id === storyId || s.slug === storyId));
 
-  const [characters, setCharacters] = useState(story?.characters || [
-    {
-      id: "char-1",
-      name: "Tara Varma",
-      role: "Protagonist",
-      avatarColor: "#e9b65a",
-      description: "Lead cartography apprentice. Possesses the quiet ability to decipher living ink lines.",
-      abilities: ["Ink Resonance", "Starlit Wayfinding"],
-      relationships: "Apprentice to Master Corvus."
-    }
-  ]);
+  const [characters, setCharacters] = useState(story?.characters || []);
 
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -70,6 +61,8 @@ export default function StoryCharactersPage() {
     setCharacters(characters.filter((c) => c.id !== id));
     addToast("Character removed", `${charName} removed from codex.`, "info");
   };
+
+  if (!story) return <WriterStoryGate title="That story is not in your studio." description="Character entries are private creator data and can only be opened for a story you own." />;
 
   return (
     <div className="w-full min-h-screen py-10 shell max-w-4xl space-y-8">

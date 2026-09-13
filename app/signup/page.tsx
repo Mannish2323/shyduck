@@ -55,7 +55,7 @@ export default function SignupPage() {
             Begin Your Journey
           </h1>
           <p className="text-xs text-[#8c91a8]">
-            Join thousands of authors and readers crafting the new wave of Indian fiction.
+            Join a new wave of authors and readers crafting Indian fiction.
           </p>
         </div>
 

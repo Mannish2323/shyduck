@@ -10,6 +10,7 @@ export interface User {
   bio: string;
   joinedDate: string;
   preferredGenres: string[];
+  followersCount?: number;
 }
 
 export interface AuthorSummary {

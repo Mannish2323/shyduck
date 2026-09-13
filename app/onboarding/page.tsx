@@ -2,12 +2,14 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 import { 
   BookOpen, 
   Feather, 
   Check, 
   ArrowRight, 
-  Compass 
+  Sparkles,
+  Compass
 } from "lucide-react";
 import { useShyduck } from "@/lib/store";
 import { GENRES } from "@/lib/mock-data";
@@ -42,15 +44,16 @@ export default function OnboardingPage() {
       if (pending) profile = JSON.parse(pending);
       localStorage.removeItem("shyduck_pending_profile");
     } catch {
-      // Continue with the safe local preview profile if storage is unavailable.
+      // Continue with fallback profile if storage is restricted
     }
 
     loginAs(intent, { ...profile, preferredGenres: selectedGenres });
+
     if (intent === "writer") {
-      addToast("Welcome to Writer Studio!", "Your creator canvas is prepared.", "success");
+      addToast("Welcome to Writer Studio! ✍️", "Your creative workspace is prepared.", "success");
       router.push("/write");
     } else {
-      addToast("Welcome to Shyduck Tales!", "Recommendations tuned to your preferred genres.", "success");
+      addToast("Welcome to Shyduck Tales! 📖", "Discover worlds tuned to your favorite genres.", "success");
       router.push("/discover");
     }
   };
@@ -58,7 +61,7 @@ export default function OnboardingPage() {
   return (
     <div className="min-h-[85vh] flex items-center justify-center py-12 px-4">
       <div className="w-full max-w-xl p-8 sm:p-12 rounded-3xl border border-[#262b45] bg-[#0e1022] shadow-2xl space-y-8 relative overflow-hidden">
-        {/* Subtle background gradient */}
+        {/* Ambient background glow */}
         <div className="absolute top-0 right-0 w-80 h-80 bg-[#e9b65a]/10 rounded-full blur-3xl pointer-events-none" />
 
         {/* Mascot & Step indicator */}
@@ -66,8 +69,8 @@ export default function OnboardingPage() {
           <div className="flex items-center space-x-3">
             <ShyduckMascot mood="peaceful" size={48} />
             <div>
-              <span className="text-[10px] font-semibold uppercase tracking-widest text-[#e9b65a] block">
-                Welcome Traveler
+              <span className="text-[10px] font-bold uppercase tracking-widest text-[#e9b65a] block">
+                Account Setup
               </span>
               <h2 className="font-serif font-bold text-lg text-[#fbf7ef]">
                 Shyduck Tales
@@ -75,80 +78,122 @@ export default function OnboardingPage() {
             </div>
           </div>
 
-          <span className="text-xs font-mono text-[#787d96] bg-[#16182c] px-3 py-1 rounded-full border border-[#252942]">
+          <span className="text-xs font-mono text-[#8b91ab] bg-[#16182c] px-3.5 py-1 rounded-full border border-[#252942]">
             Step {step} of 2
           </span>
         </div>
 
-        {/* ==================== STEP 1: INTENT ==================== */}
+        {/* ========================================================================= */}
+        {/* STEP 1: MUTUALLY EXCLUSIVE ACCOUNT TYPE (READER vs WRITER)               */}
+        {/* ========================================================================= */}
         {step === 1 && (
           <div className="space-y-6">
             <div className="space-y-1.5 text-center sm:text-left">
-              <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#fbf7ef]">
+              <h1 className="font-serif text-2xl sm:text-3xl font-black text-[#fbf7ef] tracking-tight">
                 Choose how you want to use Shyduck Tales
               </h1>
               <p className="text-xs sm:text-sm text-[#8c91a8]">
-                Choose your primary Shyduck Tales experience. You can change this later in account settings.
+                Select your primary experience. You can always change or upgrade your preferences later in Account Settings.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {[
-                {
-                  id: "reader",
-                  label: "Reader",
-                  desc: "Read stories, follow authors, save books and join the community.",
-                  icon: BookOpen
-                },
-                {
-                  id: "writer",
-                  label: "Writer",
-                  desc: "Write stories, publish chapters, build your audience and manage your worlds.",
-                  icon: Feather
-                }
-              ].map((item) => {
-                const Icon = item.icon;
-                const isSelected = intent === item.id;
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+              {/* Option A: Reader */}
+              <motion.button
+                type="button"
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setIntent("reader")}
+                className={`p-6 rounded-2xl border text-left transition-all relative flex flex-col justify-between space-y-4 ${
+                  intent === "reader"
+                    ? "bg-[#181a32] border-[#e9b65a] shadow-[0_0_30px_rgba(233,182,90,0.18)] -translate-y-1"
+                    : "bg-[#111324] border-[#222740] hover:border-[#3b4066] hover:bg-[#15182c]"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className={`p-3 rounded-xl transition-colors ${
+                    intent === "reader" 
+                      ? "bg-[#e9b65a] text-[#0a0b14]" 
+                      : "bg-[#1b1e36] text-[#a1a6bf]"
+                  }`}>
+                    <BookOpen className="w-5 h-5" />
+                  </div>
 
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => setIntent(item.id as "reader" | "writer")}
-                    className={`p-5 rounded-2xl border text-left transition-all flex flex-col justify-between space-y-3 ${
-                      isSelected
-                        ? "bg-[#181a30] border-[#e9b65a] shadow-lg shadow-[#e9b65a]/10"
-                        : "bg-[#121426] border-[#222740] hover:border-[#383d63]"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className={`p-2 rounded-xl ${isSelected ? "bg-[#e9b65a] text-[#0a0b14]" : "bg-[#1b1e36] text-[#a1a6bf]"}`}>
-                        <Icon className="w-5 h-5" />
-                      </div>
-                      {isSelected && (
-                        <div className="w-4 h-4 rounded-full bg-[#e9b65a] text-[#0a0b14] flex items-center justify-center">
-                          <Check className="w-3 h-3 stroke-[3]" />
-                        </div>
-                      )}
+                  {intent === "reader" ? (
+                    <div className="w-5 h-5 rounded-full bg-[#e9b65a] text-[#0a0b14] flex items-center justify-center shadow-md">
+                      <Check className="w-3.5 h-3.5 stroke-[3]" />
                     </div>
-                    <div>
-                      <h3 className={`font-serif font-bold text-sm ${isSelected ? "text-[#e9b65a]" : "text-[#fbf7ef]"}`}>
-                        {item.label}
-                      </h3>
-                      <p className="text-[11px] text-[#7d8299] mt-1 leading-snug">
-                        {item.desc}
-                      </p>
+                  ) : (
+                    <div className="w-5 h-5 rounded-full border border-[#303554]" />
+                  )}
+                </div>
+
+                <div>
+                  <h3 className={`font-serif font-bold text-base flex items-center gap-1.5 ${
+                    intent === "reader" ? "text-[#e9b65a]" : "text-[#fbf7ef]"
+                  }`}>
+                    <span>📖 Reader</span>
+                  </h3>
+                  <p className="text-xs text-[#878da6] mt-1.5 leading-relaxed">
+                    Read stories, follow authors, save books and join the community.
+                  </p>
+                </div>
+              </motion.button>
+
+              {/* Option B: Writer */}
+              <motion.button
+                type="button"
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setIntent("writer")}
+                className={`p-6 rounded-2xl border text-left transition-all relative flex flex-col justify-between space-y-4 ${
+                  intent === "writer"
+                    ? "bg-[#181a32] border-[#e9b65a] shadow-[0_0_30px_rgba(233,182,90,0.18)] -translate-y-1"
+                    : "bg-[#111324] border-[#222740] hover:border-[#3b4066] hover:bg-[#15182c]"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className={`p-3 rounded-xl transition-colors ${
+                    intent === "writer" 
+                      ? "bg-[#e9b65a] text-[#0a0b14]" 
+                      : "bg-[#1b1e36] text-[#a1a6bf]"
+                  }`}>
+                    <Feather className="w-5 h-5" />
+                  </div>
+
+                  {intent === "writer" ? (
+                    <div className="w-5 h-5 rounded-full bg-[#e9b65a] text-[#0a0b14] flex items-center justify-center shadow-md">
+                      <Check className="w-3.5 h-3.5 stroke-[3]" />
                     </div>
-                  </button>
-                );
-              })}
+                  ) : (
+                    <div className="w-5 h-5 rounded-full border border-[#303554]" />
+                  )}
+                </div>
+
+                <div>
+                  <h3 className={`font-serif font-bold text-base flex items-center gap-1.5 ${
+                    intent === "writer" ? "text-[#e9b65a]" : "text-[#fbf7ef]"
+                  }`}>
+                    <span>✍ Writer</span>
+                  </h3>
+                  <p className="text-xs text-[#878da6] mt-1.5 leading-relaxed">
+                    Write stories, publish chapters, build your audience and manage your worlds.
+                  </p>
+                </div>
+              </motion.button>
             </div>
 
-            <div className="pt-4 flex justify-end">
+            {/* Continue CTA (Disabled until role chosen) */}
+            <div className="pt-4 flex items-center justify-between">
+              <span className="text-xs text-[#6e748d]">
+                {intent ? `Selected: ${intent === "writer" ? "✍ Writer Studio" : "📖 Reader Feed"}` : "Please select one account type"}
+              </span>
+
               <button
+                type="button"
                 onClick={() => setStep(2)}
                 disabled={!intent}
-                className="button button-primary px-7 py-3 text-xs font-semibold flex items-center space-x-2 disabled:cursor-not-allowed disabled:opacity-40"
+                className="button button-primary px-8 py-3 text-xs font-bold flex items-center space-x-2 disabled:cursor-not-allowed disabled:opacity-30 shadow-lg shadow-[#e9b65a]/15"
               >
                 <span>Continue</span>
                 <ArrowRight className="w-4 h-4" />
@@ -157,15 +202,17 @@ export default function OnboardingPage() {
           </div>
         )}
 
-        {/* ==================== STEP 2: GENRE PREFERENCES ==================== */}
+        {/* ========================================================================= */}
+        {/* STEP 2: GENRE PREFERENCES                                                 */}
+        {/* ========================================================================= */}
         {step === 2 && (
           <div className="space-y-6">
             <div className="space-y-1.5 text-center sm:text-left">
-              <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#fbf7ef]">
+              <h1 className="font-serif text-2xl sm:text-3xl font-black text-[#fbf7ef] tracking-tight">
                 Choose your favorite genres
               </h1>
               <p className="text-xs sm:text-sm text-[#8c91a8]">
-                Select the atmospheres and themes that captivate your mind. You can always change this later.
+                Select the themes that captivate your mind. We use this to tailor your initial story recommendations and prompts.
               </p>
             </div>
 
@@ -178,33 +225,34 @@ export default function OnboardingPage() {
                     key={genre}
                     type="button"
                     onClick={() => toggleGenre(genre)}
-                    className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all flex items-center space-x-1.5 ${
+                    className={`px-4 py-2 rounded-full text-xs font-semibold border transition-all flex items-center space-x-1.5 ${
                       isSelected
-                        ? "bg-[#e9b65a] text-[#0a0b14] shadow-md shadow-[#e9b65a]/20 scale-105"
-                        : "bg-[#131526] text-[#8e94ad] border border-[#242944] hover:bg-[#1b1e36]"
+                        ? "bg-[#e9b65a] text-[#0a0b14] border-[#e9b65a] shadow-md shadow-[#e9b65a]/15 font-bold"
+                        : "bg-[#131526] text-[#8e94ad] border-[#252942] hover:border-[#3a3f65] hover:text-[#fbf7ef]"
                     }`}
                   >
-                    {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                    {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
                     <span>{genre}</span>
                   </button>
                 );
               })}
             </div>
 
-            <div className="pt-6 border-t border-[#1c2036] flex items-center justify-between">
+            <div className="pt-4 flex items-center justify-between border-t border-[#1f233a]">
               <button
+                type="button"
                 onClick={() => setStep(1)}
-                className="text-xs font-semibold text-[#7c829b] hover:text-white"
+                className="text-xs font-semibold text-[#7e849e] hover:text-[#fbf7ef] transition-colors"
               >
                 ← Back
               </button>
 
               <button
+                type="button"
                 onClick={handleFinishOnboarding}
-                className="button button-primary px-8 py-3 text-xs font-semibold flex items-center space-x-2 shadow-lg shadow-[#e9b65a]/20"
+                className="button button-primary px-8 py-3 text-xs font-bold flex items-center space-x-2 shadow-lg shadow-[#e9b65a]/15"
               >
-                <Compass className="w-4 h-4" />
-                <span>Enter Shyduck Tales</span>
+                <span>{intent === "writer" ? "Enter Writer Studio →" : "Start Exploring Stories →"}</span>
               </button>
             </div>
           </div>

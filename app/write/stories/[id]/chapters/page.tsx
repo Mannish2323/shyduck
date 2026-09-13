@@ -16,13 +16,14 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { useShyduck } from "@/lib/store";
+import { WriterStoryGate } from "@/components/creator-space";
 
 export default function ChapterManagementPage() {
   const params = useParams();
   const storyId = (params?.id as string) || "";
-  const { stories, getChaptersByStorySlug, addToast } = useShyduck();
+  const { user, stories, getChaptersByStorySlug, addToast } = useShyduck();
 
-  const story = stories.find((s) => s.id === storyId || s.slug === storyId) || stories[0];
+  const story = stories.find((s) => user?.role === "writer" && s.author.username === user.username && (s.id === storyId || s.slug === storyId));
   const initialChapters = story ? getChaptersByStorySlug(story.slug) : [];
   const [chaptersList, setChaptersList] = useState(initialChapters);
 
@@ -32,6 +33,8 @@ export default function ChapterManagementPage() {
       addToast("Chapter deleted", `"${title}" has been archived.`, "info");
     }
   };
+
+  if (!story) return <WriterStoryGate title="That story is not in your studio." />;
 
   return (
     <div className="w-full min-h-screen py-10 shell max-w-4xl space-y-8">

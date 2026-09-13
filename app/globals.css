@@ -432,3 +432,19 @@ h1, h2, h3, h4, h5, h6 {
     display: none !important;
   }
 }
+
+@keyframes creatorFloat {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-6px) rotate(1deg); }
+}
+
+.creator-float {
+  animation: creatorFloat 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .creator-float,
+  .animate-fade-in {
+    animation: none !important;
+  }
+}
