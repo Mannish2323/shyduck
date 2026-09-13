@@ -40,6 +40,7 @@ Shyduck Tales is an India-first digital storytelling platform for writers, novel
 - [Architecture](#architecture)
 - [Data model](#data-model)
 - [Data flow](#data-flow)
+- [Developer learning path](#developer-learning-path)
 - [Design system](#design-system)
 - [Responsive experience](#responsive-experience)
 - [Current repository state](#current-repository-state)
@@ -153,19 +154,40 @@ The platform architecture is intended to provide a foundation for original-work 
 
 ## Technology
 
-### Intended product stack
+### Recommended product stack
 
-| Layer | Intended technology |
-|---|---|
-| Frontend | Next.js, React, TypeScript, Tailwind CSS |
-| Animation | Framer Motion, GSAP |
-| Backend | Supabase |
-| Database | PostgreSQL |
-| Authentication | Supabase Auth |
-| Storage | Supabase Storage |
-| Testing | Vitest, Playwright |
-| Deployment | Vercel |
-| Version control | Git, GitHub |
+| Layer | Technology | Role / Responsibility |
+|---|---|---|
+| 🖥️ Frontend | **TypeScript** | Primary programming language |
+| ⚛️ UI | **React** | Interactive UI components |
+| 🌐 Framework | **Next.js** | Frontend + Server-Side Rendering (SSR) & API routes |
+| 🎨 Styling | **CSS / Tailwind CSS** | Responsive styling and design tokens |
+| ✨ Animation | **Framer Motion** | UI layout transitions and micro-interactions |
+| 🌀 Advanced Animation | **GSAP** | Cinematic story effects and hero animations |
+| 🗄️ Database | **PostgreSQL** | Relational data: users, stories, chapters, comments, follows |
+| 🔥 Backend Platform | **Supabase** | Managed PostgreSQL, Auth, Storage, and Realtime API |
+| 🔐 Authentication | **Supabase Auth** | Google OAuth, email/password, session management |
+| 📁 File Storage | **Supabase Storage** | Story covers, user avatars, and illustration assets |
+| 🔒 Security | **PostgreSQL RLS** | Row-Level Security: user, creator, and admin permissions |
+| 🔎 Search | **PostgreSQL Full-Text Search** | Initial search for stories, authors, and genre tags |
+| ⚡ Cache | **Redis** *(Future)* | High-concurrency query caching |
+| 📊 Analytics | **PostgreSQL + Custom Events** | Reads, completion rates, followers, retention metrics |
+| 🔔 Realtime | **Supabase Realtime** | Instant notifications and community interaction updates |
+| 📱 PWA | **Next.js PWA Setup** | Installable, offline-resilient web application |
+| 🧪 Testing | **Vitest + Playwright** | Unit, component, and end-to-end browser testing |
+| 🔧 Version Control | **Git + GitHub** | Source code management and CI/CD workflows |
+| 🚀 Deployment | **Vercel** | Global edge hosting and deployment for Next.js |
+
+> **Core Stack Recommendation:**  
+> **Next.js + TypeScript + React + Tailwind CSS + Supabase + PostgreSQL + Framer Motion + GSAP + Vercel**  
+> *This stack provides frontend, backend, database, authentication, social relationships, and publishing capabilities within a cohesive ecosystem.*
+
+### Essential languages
+
+1. **TypeScript ⭐⭐⭐⭐⭐** — Primary programming language for fullstack safety (superset of JavaScript).
+2. **SQL ⭐⭐⭐⭐⭐** — Relational queries, schema design, and Row-Level Security policies.
+3. **HTML ⭐⭐⭐⭐** — Semantic document structure and accessibility foundations.
+4. **CSS ⭐⭐⭐⭐** — Responsive layout, typography, and visual styling.
 
 ### Current prototype stack
 
@@ -197,28 +219,104 @@ The repository currently contains a framework-free prototype using HTML, CSS, Ja
           Analytics / Relationships / Content
 ```
 
-This is the planned application architecture. The checked-in prototype is currently a static front-end surface.
+### Scaling principle: Monolith first
+
+Avoid premature microservices or multi-database complexity early on. A cohesive monolith is ideal:
+
+```text
+Next.js
+   ↓
+Supabase (Auth + Storage + Realtime)
+   ↓
+PostgreSQL (Relational core + RLS)
+```
+
+**Avoid early over-engineering:**
+- ❌ Premature microservices
+- ❌ Java / Rust / Python secondary backends
+- ❌ MongoDB / NoSQL sprawl
+- ❌ Kubernetes clusters
+
+A clean, strongly-typed TypeScript + PostgreSQL architecture will comfortably scale from MVP to high traction. Separate microservices, Redis caches, and dedicated search engines should only be introduced when traffic bottlenecks genuinely warrant them.
 
 ## Data model
 
+The relational database is the backbone of Shyduck Tales. User accounts, reading progress, publications, and social relationships map naturally to relational schemas:
+
 ```text
-Users
-│
-├── Profiles
-├── Stories
-│   └── Chapters
-│       └── Chapter Versions
-├── Followers
-├── Bookmarks
-├── Reading Progress
-├── Reading Lists
-├── Comments
-├── Reactions
-└── Notifications
+users
+   ↓
+profiles
+   ↓
+stories
+   ↓
+chapters
+   ↓
+comments
+```
+
+User social graph:
+```text
+users ↕ follows ↕ users
+```
+
+### Core database tables
+
+```text
+-- Identity & Users
+users
+profiles
+
+-- Stories & Publishing
+stories
+chapters
+chapter_versions
+
+-- Taxonomy
+genres
+tags
+story_tags
+
+-- Social & Relationships
+follows
+story_follows
+
+-- Reading Experience
+bookmarks
+reading_lists
+reading_list_items
+reading_progress
+
+-- Engagement & Community
+comments
+comment_replies
+reactions
+
+-- Notifications & Assets
+notifications
+media
+media_usage
+
+-- Moderation & Governance
+reports
+moderation_actions
+
+-- Analytics & Administration
+analytics_events
+featured_content
+collections
+admin_audit_logs
+```
+
+Future expansion tables (crowdfunding & multimedia adaptations):
+```text
+funding_campaigns
+funding_supporters
+adaptation_projects
+adaptation_milestones
 ```
 
 Advanced story-world relationships:
-
 ```text
 Stories
 ├── Genres
@@ -232,35 +330,63 @@ Stories
 
 ## Data flow
 
-### Writer publishes a chapter
+### Publishing and reader lifecycle
 
 ```text
-Writer
-  ↓
-Story Editor
-  ↓
-Autosave
-  ↓
-Preview
-  ↓
-Publish
-  ↓
-PostgreSQL
-  ↓
-Followers identified
-  ↓
-Notifications
-  ↓
+Writer publishes Chapter 12
+        ↓
+PostgreSQL: chapters (status = 'published')
+        ↓
+Identify followers: story_follows
+        ↓
+Generate notifications: notifications table
+        ↓
+Reader web app: "New Chapter Available" alert
+        ↓
 Reader opens chapter
-  ↓
-Reading Progress
-  ↓
-Analytics Event
-  ↓
-Creator Dashboard
+        ↓
+Update reading_progress
+        ↓
+Log analytics event: chapter_view
+        ↓
+Writer dashboard updates: views, readers, completion rate
 ```
 
-The relational model is intended to keep users, followers, stories, chapters, comments, reading progress and analytics connected without turning the reader experience into a disconnected content feed.
+The relational model keeps users, followers, stories, chapters, comments, reading progress and analytics connected without turning the reader experience into a disconnected content feed.
+
+## Developer learning path
+
+Recommended learning order for building Shyduck Tales:
+
+```text
+HTML
+  ↓
+CSS
+  ↓
+JavaScript fundamentals
+  ↓
+TypeScript ⭐
+  ↓
+React
+  ↓
+Next.js ⭐
+  ↓
+SQL ⭐
+  ↓
+PostgreSQL ⭐
+  ↓
+Supabase
+  ↓
+Authentication
+  ↓
+Row-Level Security (RLS)
+  ↓
+API design
+  ↓
+Testing (Vitest / Playwright)
+  ↓
+Deployment (Vercel)
+```
 
 ## Design system
 
