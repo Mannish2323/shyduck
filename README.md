@@ -1,762 +1,480 @@
 <div align="center">
 
-<!-- Animated Header Banner -->
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:1a1b27,100:0d1117&height=220&section=header&text=🦆%20SHYDUCK&fontSize=80&fontColor=58a6ff&animation=fadeIn&fontAlignY=35&desc=Learn%20Anything.%20Practice%20Everything.%20Build%20Together.&descSize=18&descColor=8b949e&descAlignY=55" />
+<div aria-label="Shyduck Tales logo" role="img" style="font-size: 48px;">🦆</div>
 
-<!-- Animated Typing SVG -->
-<a href="https://git.io/typing-svg">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=58A6FF&center=true&vCenter=true&multiline=true&repeat=true&width=700&height=100&lines=🚀+AI-Powered+Learning+Ecosystem;💻+Code+%7C+Practice+%7C+Build+%7C+Share;🌍+Programming+%7C+Languages+%7C+AI+%7C+Design;🦆+Because+Learning+Doesn't+Have+to+Be+Boring" alt="Typing SVG" />
-</a>
+# SHYDUCK TALES
 
-<br/>
+### Where Stories Come Alive.
 
-<!-- Animated Badges -->
-[![Status](https://img.shields.io/badge/Status-🚧%20Early%20Development-yellow?style=for-the-badge&labelColor=0d1117)](https://github.com/Mannish2323/shyduck)
-[![License](https://img.shields.io/badge/License-Coming%20Soon-blue?style=for-the-badge&labelColor=0d1117)](https://github.com/Mannish2323/shyduck)
-[![Made With](https://img.shields.io/badge/Made%20With-❤️-red?style=for-the-badge&labelColor=0d1117)](https://github.com/Mannish2323/shyduck)
+**Stories deserve worlds.**
 
-<br/>
+A modern home for original novels, anime-inspired stories, storytellers and readers.
 
-[![Stars](https://img.shields.io/github/stars/Mannish2323/shyduck?style=for-the-badge&logo=github&color=f0e68c&labelColor=0d1117)](https://github.com/Mannish2323/shyduck/stargazers)
-[![Forks](https://img.shields.io/github/forks/Mannish2323/shyduck?style=for-the-badge&logo=github&color=58a6ff&labelColor=0d1117)](https://github.com/Mannish2323/shyduck/network)
-[![Issues](https://img.shields.io/github/issues/Mannish2323/shyduck?style=for-the-badge&logo=github&color=f78166&labelColor=0d1117)](https://github.com/Mannish2323/shyduck/issues)
-[![Last Commit](https://img.shields.io/github/last-commit/Mannish2323/shyduck?style=for-the-badge&logo=github&color=a371f7&labelColor=0d1117)](https://github.com/Mannish2323/shyduck/commits/main)
+[![Status: early development](https://img.shields.io/badge/status-early%20development-d8a84e?style=for-the-badge&labelColor=171827)](#roadmap)
+[![Prototype: static web](https://img.shields.io/badge/prototype-static%20web-8d9cff?style=for-the-badge&labelColor=171827)](#current-repository-state)
+[![License: TBD](https://img.shields.io/badge/license-to%20be%20determined-8d9cff?style=for-the-badge&labelColor=171827)](#license)
+
+<br />
+
+<a href="#what-is-shyduck-tales">Explore Stories</a> &nbsp; · &nbsp;
+<a href="#become-a-writer">Become a Writer</a> &nbsp; · &nbsp;
+<a href="https://github.com/Mannish2323/shyduck">GitHub</a>
 
 </div>
 
-<!-- Animated Wave Divider -->
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" />
+<br />
 
-## 📌 Table of Contents
+<p align="center"><em>🎞️ Cinematic intro placeholder — add <code>docs/assets/shyduck-intro.gif</code> when the first product capture is ready.</em></p>
 
-<details>
-<summary>🔍 Click to expand</summary>
+<p align="center"><em>Every story begins with a blank page.</em></p>
 
-- [🚀 Vision](#-vision)
-- [✨ Core Features](#-core-features)
-- [🤖 AI Tutor](#-ai-tutor)
-- [💻 Coding Lab](#-coding-lab)
-- [🌍 Language Learning](#-language-learning)
-- [👨‍🏫 Teacher Platform](#-teacher-platform)
-- [👥 Learning Community](#-learning-community)
-- [🏆 Gamification](#-gamification)
-- [🛠️ Project-Based Learning](#️-project-based-learning)
-- [🧠 Smart Revision](#-smart-revision)
-- [📱 Mobile-First](#-mobile-first-experience)
-- [🏗️ Tech Stack](#️-technology-stack)
-- [🧩 Architecture](#-high-level-architecture)
-- [🗂️ Project Structure](#️-planned-project-structure)
-- [🔐 Security](#-security)
-- [🗺️ Roadmap](#️-roadmap)
+Shyduck Tales is an India-first digital storytelling platform for writers, novelists, anime-story creators and readers. The first version is focused on the essential loop: writing, publishing, discovering and reading. Over time, the most loved stories can grow into richer experiences — comics, audio, motion stories and other adaptations.
 
-</details>
+> **V1 principle:** build a beautiful home for stories before building everything around them.
 
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" />
+## Contents
 
-<div align="center">
+- [What is Shyduck Tales?](#what-is-shyduck-tales)
+- [Core features](#core-features)
+- [Technology](#technology)
+- [Architecture](#architecture)
+- [Data model](#data-model)
+- [Data flow](#data-flow)
+- [Design system](#design-system)
+- [Responsive experience](#responsive-experience)
+- [Current repository state](#current-repository-state)
+- [Getting started](#getting-started)
+- [Security foundation](#security-foundation)
+- [Testing](#testing)
+- [Roadmap](#roadmap)
+- [Future vision](#future-vision)
+- [India-first](#india-first)
+- [Screenshots](#screenshots)
+- [The Shyduck](#the-shyduck)
+- [Contributing](#contributing)
+- [License](#license)
 
-## 🚀 Vision
+## What is Shyduck Tales?
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=18&duration=2500&pause=800&color=A371F7&center=true&vCenter=true&repeat=true&width=600&height=50&lines=Learning+is+NOT+just+watching+courses;Learning+is+NOT+just+reading+docs;Learning+is+DOING+%2B+BUILDING+%2B+SHARING" alt="Vision Typing" />
+Shyduck Tales is designed around a simple creative journey:
 
-</div>
-
-> [!IMPORTANT]
-> Shyduck is **not** another course platform. It's a complete **learning ecosystem** where you learn, practice, build, connect, and grow.
-
-Instead of the traditional:
-
-```
-❌  Watch → Read → Finish → Forget
-```
-
-Shyduck follows:
-
-```
-✅  Learn → Practice → Remember → Apply → Build → Share → Improve → 🔁
-```
-
-<br/>
-
-<div align="center">
-
-| 🎯 What Shyduck Enables |
-|:---|
-| ✅ Learn new skills interactively |
-| ✅ Practice with AI-powered feedback |
-| ✅ Identify and fix weak areas |
-| ✅ Build real-world projects |
-| ✅ Join learning communities |
-| ✅ Participate in challenges |
-| ✅ Get teacher & peer feedback |
-| ✅ Track long-term progress |
-| ✅ Eventually teach & mentor others |
-
-</div>
-
-<br/>
-
-<div align="center">
-
-**Works across:**
-
-![Programming](https://img.shields.io/badge/Programming-58a6ff?style=flat-square&labelColor=0d1117)
-![Technology](https://img.shields.io/badge/Technology-f78166?style=flat-square&labelColor=0d1117)
-![Languages](https://img.shields.io/badge/Human%20Languages-a371f7?style=flat-square&labelColor=0d1117)
-![AI](https://img.shields.io/badge/AI-3fb950?style=flat-square&labelColor=0d1117)
-![Design](https://img.shields.io/badge/Design-f0e68c?style=flat-square&labelColor=0d1117)
-![Academics](https://img.shields.io/badge/Academics-ff6b6b?style=flat-square&labelColor=0d1117)
-![Professional](https://img.shields.io/badge/Professional%20Skills-79c0ff?style=flat-square&labelColor=0d1117)
-
-</div>
-
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" />
-
-# ✨ Core Features
-
-<div align="center">
-
-<!-- Feature Cards Grid -->
-<table>
-<tr>
-<td align="center" width="33%">
-
-### 🎓 Student Learning
-
-```
-📊 Personalized Dashboard
-📚 Course-based Learning
-🎯 Interactive Lessons
-📈 Progress Tracking
-🔥 Streaks & XP
-⭐ Achievements
-🧠 Smart Revision
-📝 Quizzes & Flashcards
-🏗️ Project-based Learning
+```text
+WRITE
+  ↓
+PUBLISH
+  ↓
+DISCOVER
+  ↓
+READ
+  ↓
+CONNECT
+  ↓
+BUILD A COMMUNITY
+  ↓
+SUPPORT
+  ↓
+BRING STORIES TO LIFE
 ```
 
-</td>
-<td align="center" width="33%">
+Writers should be able to make a world one chapter at a time. Readers should be able to find stories worth staying with. Communities should form around the worlds people care about.
 
-### 🤖 AI Tutor
+Animation is a future direction, not a V1 dependency. The foundation is the story, the creator and the reader relationship.
 
-```
-💡 Concept Explanations
-🎯 Personalized Guidance
-📝 Step-by-step Hints
-❓ Question Generation
-🧪 Quiz Generation
-🔍 Weak-topic Detection
-📅 Revision Recommendations
-💻 Coding Assistance
-🗣️ Language Practice
-```
+## Core features
 
-</td>
-<td align="center" width="33%">
+### Story publishing
 
-### 👨‍🏫 Teacher Platform
+The creator experience is planned around:
 
-```
-📚 Create Courses
-📦 Create Modules
-✏️ Create Lessons
-📊 Student Analytics
-📝 Quiz & Assignments
-💻 Coding Challenges
-👥 Learning Groups
-📈 Progress Monitoring
-💬 Provide Feedback
-```
+- Story and chapter creation
+- Draft management and autosave
+- Rich text editing and preview
+- Scheduled publishing
+- Story metadata, covers, genres and tags
+- Ongoing, completed and hiatus status
+- Version history as the product matures
 
-</td>
-</tr>
-</table>
+### Premium reader
 
-</div>
+- Distraction-free reading
+- Reading progress and continue reading
+- Chapter navigation and bookmarks
+- Dark and light reading modes
+- Font and reading-width controls
+- Mobile-first reading layouts
 
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" />
+### Story discovery
 
-## 🤖 AI Tutor
+- Story and author search
+- Genre and tag discovery
+- Trending, new, featured and rising-writer surfaces
+- Completed novels and reading lists
+- A foundation for personalized recommendations
 
-<div align="center">
+### Creator profiles
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=16&duration=2000&pause=500&color=3FB950&center=true&vCenter=true&repeat=true&width=500&height=40&lines=AI+that+teaches,+not+just+answers;Adapts+to+YOUR+learning+speed;Your+personal+study+companion" alt="AI Typing" />
+Writers can build an identity beyond a single story:
 
-</div>
+- Profile and bio
+- Published stories and collections
+- Followers and author information
+- Story-level statistics as analytics mature
 
-> [!NOTE]
-> The AI adapts its explanations according to the learner's progress and understanding. It **guides**, it doesn't **replace** the learning process.
+### Story universe
 
-<details>
-<summary>🧠 <b>Full AI Capabilities</b> — Click to expand</summary>
-<br/>
+Advanced stories can gradually become complete fictional worlds:
 
-| Capability | Description |
-|:---|:---|
-| 💡 Concept Explanations | Break down complex topics into simple terms |
-| 🎯 Personalized Guidance | Tailored learning paths based on your progress |
-| 📝 Step-by-step Hints | Guided problem solving without giving away answers |
-| ❓ Question Generation | AI-generated practice questions on any topic |
-| 🧪 Quiz Generation | Auto-create quizzes from lessons and materials |
-| 🔍 Weak-topic Detection | Identify areas where you need more practice |
-| 📅 Revision Recommendations | Smart scheduling of review sessions |
-| 💬 Learning Feedback | Detailed feedback on your work |
-| 💻 Coding Assistance | Debug help, code review, and explanations |
-| 🗣️ Language Practice | Conversational practice for language learning |
-| 📖 Study Guidance | Personalized study plans and strategies |
-
-</details>
-
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" />
-
-## 💻 Coding Lab
-
-<div align="center">
-
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=16&duration=2000&pause=500&color=F78166&center=true&vCenter=true&repeat=true&width=500&height=40&lines=Write+Code+→+Run+→+Test+→+Submit;Browser-based+IDE+with+live+execution;Practice+in+15%2B+programming+languages" alt="Coding Typing" />
-
-</div>
-
-<div align="center">
-
-**Planned Language Support**
-
-<br/>
-
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![C](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white)
-![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
-![Rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
-![Go](https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white)
-![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
-![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)
-![Swift](https://img.shields.io/badge/Swift-F05138?style=for-the-badge&logo=swift&logoColor=white)
-![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-
-</div>
-
-<br/>
-
-<div align="center">
-
-```
-┌─────────────────────────────────────────────┐
-│              🖥️ CODING LAB                  │
-├─────────────────────────────────────────────┤
-│                                             │
-│  📝 Browser-based Editor                    │
-│  ▶️  Real-time Code Execution               │
-│  ✅ Automated Test Cases                    │
-│  📊 Automatic Evaluation                   │
-│  🏋️ Coding Challenges                      │
-│  💡 Smart Hints                             │
-│  📜 Submission History                      │
-│  🏗️ Project-based Challenges               │
-│                                             │
-└─────────────────────────────────────────────┘
+```text
+STORY
+├── Characters
+├── Locations
+├── Factions
+├── Lore
+└── Timeline
 ```
 
-</div>
+### Community
 
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" />
+- Follow authors and stories
+- Comments, replies and reactions
+- Discussions and notifications
+- Spoiler protection
+- Reading lists
 
-## 🌍 Language Learning
+### Creator analytics
 
-> [!TIP]
-> Shyduck is **not limited to programming**. The same learning engine powers human-language learning too!
+The planned analytics surface will help writers understand reads, unique readers, followers, bookmarks, comments, chapter views, completion rate, retention and growth.
 
-<div align="center">
+These are product goals, not claims that the current static prototype already measures them.
 
-```
-📖 Vocabulary → 📝 Grammar → 👂 Listening → 🗣️ Speaking → 💬 Conversation → 🔄 Practice → 🧠 Revision → 📊 Assessment
-```
+### Creator protection
 
-<br/>
+The platform architecture is intended to provide a foundation for original-work declarations, copyright reporting, content reports, plagiarism reports, moderation, version history and audit logs. Shyduck Tales makes no unsupported legal or copyright guarantees.
 
-**Future language modules:**
+## Technology
 
-![English](https://img.shields.io/badge/🇬🇧_English-58a6ff?style=for-the-badge&labelColor=0d1117)
-![Japanese](https://img.shields.io/badge/🇯🇵_Japanese-f78166?style=for-the-badge&labelColor=0d1117)
-![Korean](https://img.shields.io/badge/🇰🇷_Korean-a371f7?style=for-the-badge&labelColor=0d1117)
-![Spanish](https://img.shields.io/badge/🇪🇸_Spanish-3fb950?style=for-the-badge&labelColor=0d1117)
-![French](https://img.shields.io/badge/🇫🇷_French-f0e68c?style=for-the-badge&labelColor=0d1117)
-![German](https://img.shields.io/badge/🇩🇪_German-ff6b6b?style=for-the-badge&labelColor=0d1117)
-![Hindi](https://img.shields.io/badge/🇮🇳_Hindi-79c0ff?style=for-the-badge&labelColor=0d1117)
+### Intended product stack
 
-</div>
+| Layer | Intended technology |
+|---|---|
+| Frontend | Next.js, React, TypeScript, Tailwind CSS |
+| Animation | Framer Motion, GSAP |
+| Backend | Supabase |
+| Database | PostgreSQL |
+| Authentication | Supabase Auth |
+| Storage | Supabase Storage |
+| Testing | Vitest, Playwright |
+| Deployment | Vercel |
+| Version control | Git, GitHub |
 
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" />
+### Current prototype stack
 
-## 👥 Learning Community
+The repository currently contains a framework-free prototype using HTML, CSS, JavaScript, local image assets and browser-native interactions. The intended product stack above is a roadmap direction, not an assertion about the current implementation.
 
-<div align="center">
+## Architecture
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=16&duration=2000&pause=500&color=79C0FF&center=true&vCenter=true&repeat=true&width=500&height=40&lines=Learn+Together+→+Build+Together+→+Grow+Together;Communities+built+around+learning;Connect+with+learners+worldwide" alt="Community Typing" />
-
-</div>
-
-<div align="center">
-<table>
-<tr>
-<td align="center" width="50%">
-
-### 💬 Community Features
-
-```
-📝 Posts & Discussions
-❓ Questions & Answers
-💬 Comments & Reactions
-📊 Polls
-📁 Resource Sharing
-🏗️ Project Showcases
-🏆 Challenges
-🤝 Mentorship
-```
-
-</td>
-<td align="center" width="50%">
-
-### 👥 Example Groups
-
-```
-🟡 JavaScript Beginners
-🇯🇵 Japanese N5 Study Group
-⚛️ React Developers
-🌐 Web Development 2026
-🤖 AI Builders
-🦀 Rust Enthusiasts
-📱 Mobile Dev Community
-🎨 UI/UX Designers
+```text
+                         ┌───────────────────┐
+                         │   SHYDUCK TALES   │
+                         └─────────┬─────────┘
+                                   │
+              ┌────────────────────┼────────────────────┐
+              ▼                    ▼                    ▼
+          READERS              WRITERS                ADMINS
+              │                    │                    │
+       Discover / Read      Write / Publish      Manage Platform
+              └────────────────────┼────────────────────┘
+                                   ▼
+                           Next.js / React
+                                   │
+                                   ▼
+                              Supabase API
+                     ┌─────────────┼─────────────┐
+                     ▼             ▼             ▼
+                PostgreSQL      Storage          Auth
+                     │
+                     ▼
+          Analytics / Relationships / Content
 ```
 
-</td>
-</tr>
-</table>
-</div>
+This is the planned application architecture. The checked-in prototype is currently a static front-end surface.
 
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" />
+## Data model
 
-## 🏆 Gamification
-
-<div align="center">
-
-### ⚡ XP System
-
-| Action | Reward |
-|:---|:---|
-| 📚 Complete a Lesson | +XP |
-| 📝 Pass a Quiz | +XP |
-| 💻 Solve a Challenge | +XP |
-| 🏗️ Build a Project | +XP |
-| 🔥 Maintain Streak | +XP |
-| 🤝 Help Community | +XP |
-| 🎯 Complete Goals | +XP |
-
-<br/>
-
-### 📈 Progression System
-
-```
-  🌱 Beginner
-      ↓
-  🔍 Explorer
-      ↓
-  🏗️ Builder
-      ↓
-  ⚡ Specialist
-      ↓
-  👑 Master
-```
-
-<br/>
-
-### 🏅 Achievements
-
-![First Lesson](https://img.shields.io/badge/🎓_First_Lesson-58a6ff?style=flat-square&labelColor=0d1117)
-![First Quiz](https://img.shields.io/badge/📝_First_Quiz-3fb950?style=flat-square&labelColor=0d1117)
-![First Project](https://img.shields.io/badge/🏗️_First_Project-f78166?style=flat-square&labelColor=0d1117)
-![7 Day Streak](https://img.shields.io/badge/🔥_7_Day_Streak-f0e68c?style=flat-square&labelColor=0d1117)
-![30 Day Streak](https://img.shields.io/badge/🔥_30_Day_Streak-ff6b6b?style=flat-square&labelColor=0d1117)
-![Challenge Master](https://img.shields.io/badge/🏆_Challenge_Master-a371f7?style=flat-square&labelColor=0d1117)
-![Community Helper](https://img.shields.io/badge/🤝_Community_Helper-79c0ff?style=flat-square&labelColor=0d1117)
-![Course Master](https://img.shields.io/badge/👑_Course_Master-d2a8ff?style=flat-square&labelColor=0d1117)
-
-</div>
-
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" />
-
-## 🛠️ Project-Based Learning
-
-<div align="center">
-
-> **Stop after courses? Never.**
-> Apply your knowledge through real projects.
-
-```
-📚 JavaScript                🎯 Learn Fundamentals
-      ↓                            ↓
-🏋️ Practice                  💻 Coding Challenges
-      ↓                            ↓
-🏗️ Mini Project              🚀 Advanced Project
-      ↓                            ↓
-📁 Portfolio                  🌍 Share & Get Feedback
-```
-
-</div>
-
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" />
-
-## 🧠 Smart Revision
-
-> [!TIP]
-> **Spend more time on what you DON'T know and less time on what you already know.**
-
-<div align="center">
-
-The system tracks your learning to optimize revision:
-
-```
-📊 Quiz Performance         ❌ Repeated Mistakes
-      ↓                            ↓
-⏱️ Time Spent               📝 Previous Attempts
-      ↓                            ↓
-📅 Revision History          📈 Topic Difficulty
-      ↓                            ↓
-      └──────────┬─────────────────┘
-                 ↓
-        🧠 SMART REVISION
-         Personalized for YOU
-```
-
-</div>
-
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" />
-
-## 📱 Mobile-First Experience
-
-<div align="center">
-
-```
-📱 Mobile  →  📱 Tablet  →  🖥️ Desktop  →  📲 PWA  →  📦 Native Apps
-```
-
-Fast • Accessible • Intuitive • Responsive
-
-</div>
-
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" />
-
-## 🏗️ Technology Stack
-
-<div align="center">
-
-### 🎨 Frontend
-
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)
-
-### ⚙️ Backend
-
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
-![Rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-
-### 🗄️ Database & Infra
-
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
-![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
-![WebSocket](https://img.shields.io/badge/WebSocket-010101?style=for-the-badge&logo=socketdotio&logoColor=white)
-
-### 🔐 Auth & Security
-
-![OAuth](https://img.shields.io/badge/OAuth-EB5424?style=for-the-badge&logo=auth0&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
-![RBAC](https://img.shields.io/badge/RBAC-4A154B?style=for-the-badge&logoColor=white)
-
-</div>
-
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" />
-
-## 🧩 High-Level Architecture
-
-<div align="center">
-
-```
-                              🦆 SHYDUCK
-                                  │
-                 ┌────────────────┼────────────────┐
-                 │                │                │
-            🎓 STUDENT      👨‍🏫 TEACHER      👥 COMMUNITY
-                 │                │                │
-                 └────────────────┼────────────────┘
-                                  │
-                            ⚛️ NEXT.JS
-                                  │
-                         📡 APPLICATION API
-                                  │
-             ┌────────────────────┼────────────────────┐
-             │                    │                    │
-        🟢 Node.js           🦀 Rust            🐍 Python
-             │                    │                    │
-             └────────────────────┼────────────────────┘
-                                  │
-                          🐘 PostgreSQL
-                                  │
-                          ⚡ Redis / Cache
-                                  │
-                          🤖 AI SERVICES
-                                  │
-                          🌐 External APIs
-```
-
-</div>
-
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" />
-
-## 🗂️ Planned Project Structure
-
-<details>
-<summary>📂 <b>Click to expand full structure</b></summary>
-
-```
-shyduck/
+```text
+Users
 │
-├── 📱 app/
-│   ├── (auth)/           # Authentication pages
-│   ├── dashboard/        # Student dashboard
-│   ├── learn/            # Learning modules
-│   ├── practice/         # Practice area
-│   ├── coding/           # Coding lab
-│   ├── projects/         # Project-based learning
-│   ├── community/        # Community features
-│   ├── groups/           # Learning groups
-│   ├── tutor/            # AI tutor interface
-│   ├── profile/          # User profiles
-│   └── teacher/          # Teacher dashboard
-│
-├── 🧩 components/
-│   ├── ui/               # Base UI components
-│   ├── learning/         # Learning components
-│   ├── coding/           # Code editor components
-│   ├── community/        # Community components
-│   ├── dashboard/        # Dashboard widgets
-│   └── shared/           # Shared components
-│
-├── 📚 lib/
-│   ├── auth/             # Authentication logic
-│   ├── api/              # API clients
-│   ├── database/         # Database utilities
-│   ├── ai/               # AI integration
-│   └── utils/            # Utility functions
-│
-├── ⚙️ services/
-│   ├── ai/               # AI microservices
-│   ├── coding/           # Code execution engine
-│   └── learning/         # Learning engine
-│
-├── 🖼️ public/             # Static assets
-├── 🐍 python/             # Python AI services
-├── 🦀 rust/               # Rust high-perf services
-├── 🧪 tests/              # Test suites
-├── 📖 docs/               # Documentation
-│
-├── .env.example           # Environment template
-├── .gitignore             # Git ignore rules
-├── package.json           # Node dependencies
-├── tsconfig.json          # TypeScript config
-└── README.md              # You are here! 🦆
+├── Profiles
+├── Stories
+│   └── Chapters
+│       └── Chapter Versions
+├── Followers
+├── Bookmarks
+├── Reading Progress
+├── Reading Lists
+├── Comments
+├── Reactions
+└── Notifications
 ```
 
-</details>
+Advanced story-world relationships:
 
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" />
-
-## 🔐 Security
-
-> [!CAUTION]
-> **Never commit secrets to the repository!**
-> Use `.env.example` for configuration documentation. Actual API keys, database passwords, and tokens must stay in `.env.local` (which is gitignored).
-
-<div align="center">
-
-| Security Layer | Implementation |
-|:---|:---|
-| 🔑 Authentication | Secure auth with OAuth |
-| 🛡️ Authorization | Role-based access control (RBAC) |
-| ✅ Validation | Server-side input validation |
-| 🚫 Rate Limiting | API rate limiting & throttling |
-| 🔒 Encryption | Encrypted data at rest & in transit |
-| 📁 File Security | Secure file upload handling |
-| 🗄️ Database | Parameterized queries, no SQL injection |
-| 🧹 Sanitization | Input sanitization & XSS prevention |
-| 📋 Audit | Comprehensive audit logging |
-| 🔐 Secrets | Environment-based secret management |
-
-</div>
-
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" />
-
-## 🧑‍💻 Development Philosophy
-
-<div align="center">
-
-| # | Principle | Description |
-|:---:|:---|:---|
-| 1️⃣ | **Learning First** | Every feature must improve the learning experience |
-| 2️⃣ | **Build, Don't Just Watch** | Practical > Passive consumption |
-| 3️⃣ | **AI as a Tutor** | AI guides learners, doesn't replace learning |
-| 4️⃣ | **Community Matters** | Learn from each other |
-| 5️⃣ | **Teachers Matter** | AI assists teachers, doesn't replace them |
-| 6️⃣ | **Mobile First** | Exceptional mobile experience |
-| 7️⃣ | **Scalable Architecture** | Add subjects/languages without redesign |
-
-</div>
-
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" />
-
-## 🗺️ Roadmap
-
-<div align="center">
-
-```
-  Phase 1          Phase 2          Phase 3          Phase 4          Phase 5          Phase 6
-    🏗️               📚               💻               👥               🤖               🚀
- Foundation      Learning         Coding Lab       Community          AI             Scale
-    ↓               ↓                ↓               ↓               ↓               ↓
- Auth, DB,       Lessons,         Editor,          Groups,         AI Tutor,        PWA,
- Profiles,       Quizzes,         Execution,       Posts,          Quiz Gen,        Mobile,
- Dashboard       XP, Streaks      Challenges       Showcase        Coding AI        Certs
+```text
+Stories
+├── Genres
+├── Tags
+├── Characters
+├── Locations
+├── Factions
+├── Lore
+└── Timeline
 ```
 
-</div>
+## Data flow
 
-<details>
-<summary>📋 <b>Detailed Roadmap</b> — Click to expand</summary>
+### Writer publishes a chapter
 
-### Phase 1 — 🏗️ Foundation
-- [ ] Project architecture
-- [ ] Authentication system
-- [ ] User profiles
-- [ ] Student dashboard
-- [ ] Course system
-- [ ] Basic teacher dashboard
-- [ ] Admin foundation
-- [ ] Database architecture
+```text
+Writer
+  ↓
+Story Editor
+  ↓
+Autosave
+  ↓
+Preview
+  ↓
+Publish
+  ↓
+PostgreSQL
+  ↓
+Followers identified
+  ↓
+Notifications
+  ↓
+Reader opens chapter
+  ↓
+Reading Progress
+  ↓
+Analytics Event
+  ↓
+Creator Dashboard
+```
 
-### Phase 2 — 📚 Learning Engine
-- [ ] Interactive lessons
-- [ ] Quiz system
-- [ ] Practice modules
-- [ ] Flashcards
-- [ ] Smart revision
-- [ ] XP system
-- [ ] Streaks
-- [ ] Achievements
-- [ ] Progress tracking
+The relational model is intended to keep users, followers, stories, chapters, comments, reading progress and analytics connected without turning the reader experience into a disconnected content feed.
 
-### Phase 3 — 💻 Coding Lab
-- [ ] Browser-based code editor
-- [ ] Code execution engine
-- [ ] Test case system
-- [ ] Coding challenges
-- [ ] Submission system
-- [ ] Project system
+## Design system
 
-### Phase 4 — 👥 Community
-- [ ] Communities
-- [ ] Groups
-- [ ] Posts & discussions
-- [ ] Comments & reactions
-- [ ] Project showcase
-- [ ] Moderation tools
+Shyduck Tales should feel like a premium editorial product: cinematic enough to invite imagination, quiet enough to let the story lead.
 
-### Phase 5 — 🤖 AI Integration
-- [ ] AI Tutor
-- [ ] AI Study Coach
-- [ ] AI explanations
-- [ ] AI quiz generation
-- [ ] AI revision scheduling
-- [ ] AI coding assistance
-- [ ] AI language practice
+| Principle | Meaning |
+|---|---|
+| **Cinematic** | Stories should feel immersive without relying on visual noise. |
+| **Editorial** | Typography and spacing should make long-form reading comfortable. |
+| **Minimal** | The interface should never overpower the story. |
+| **Responsive** | Mobile and desktop are first-class experiences. |
+| **Accessible** | Readable typography, contrast, keyboard navigation and semantic HTML are foundational. |
 
-### Phase 6 — 🚀 Scale
-- [ ] Progressive Web App
-- [ ] Mobile applications
-- [ ] Teacher marketplace
-- [ ] Certificates
-- [ ] Advanced analytics
-- [ ] Recommendation engine
-- [ ] Subscription system
+The intended interface uses a midnight palette with cream, warm gold, soft blue and purple atmosphere, plus the Shyduck mascot as a restrained visual signature.
 
-</details>
+## Responsive experience
 
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" />
+```text
+Desktop  →  Tablet  →  Mobile  →  PWA
+```
+
+The product is intended to support:
+
+- Responsive story cards
+- A focused mobile reader
+- Mobile navigation and touch-friendly controls
+- A responsive writer studio
+- A responsive admin panel
+
+## Current repository state
+
+The repository currently contains the product README and Git ignore configuration. The application implementation has not yet been checked in here.
+
+The following are not yet implemented in this repository: a Next.js application, Supabase integration, database migrations, real authentication, writer routes, reader routes, creator analytics, community services, visual assets and automated test scripts.
+
+## Getting started
+
+This repository currently has no `package.json` or npm scripts. There is no runnable application checked in yet:
+
+```bash
+git clone <repository-url>
+cd shyduck
+```
+
+The commands above only clone the repository. The application setup below is planned for the Next.js implementation.
+
+### Planned application setup
+
+When the Next.js application is introduced, the intended workflow will be:
+
+```bash
+npm install
+npm run dev
+```
+
+```text
+http://localhost:3000
+```
+
+Do not run those commands against the current repository expecting npm scripts to exist yet.
+
+### Planned local environment
+
+Actual Supabase values must be supplied locally when that integration is implemented. Never commit secrets.
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+```
+
+## Security foundation
+
+The planned application should include:
+
+- Supabase Row Level Security for user-owned data
+- Server-side authorization for protected operations
+- Protected writer and admin routes
+- Explicit storage policies for covers and creator uploads
+- Input validation and safe rich-text handling
+- Environment variables for configuration and secrets
+- No secrets in Git history
+
+These are architecture requirements for the product, not controls that the current static prototype can enforce.
+
+## Testing
+
+No automated test scripts are currently defined. Once the application stack exists, the intended commands are:
+
+```bash
+npm run test
+npm run test:e2e
+```
+
+They should be added to `package.json` before being presented as runnable repository commands.
+
+## Roadmap
+
+Progress is intentionally described as direction, not fabricated completion percentages.
+
+```text
+PHASE 01  ██████████  Foundation
+PHASE 02  ████████░░  Story Platform
+PHASE 03  ██████░░░░  Creator Studio
+PHASE 04  ████░░░░░░  Community
+PHASE 05  ███░░░░░░░  Admin & Moderation
+PHASE 06  ██░░░░░░░░  Analytics
+PHASE 07  ░░░░░░░░░░  Creator Support
+PHASE 08  ░░░░░░░░░░  Adaptation Ecosystem
+```
+
+Current implementation status is the static prototype described in [Current repository state](#current-repository-state). The bars above are sequencing guidance, not measured project completion.
+
+## Future vision
+
+```text
+                 📖 NOVEL
+                    │
+                    ▼
+                 👥 READERS
+                    │
+                    ▼
+                ❤️ COMMUNITY
+                    │
+                    ▼
+                💰 SUPPORT
+              ┌─────┼─────┐
+              ▼     ▼     ▼
+            📕 Comic 🎧 Audio 🎞 Motion
+                                  │
+                                  ▼
+                               🎬 Anime
+```
+
+The long-term vision is to help exceptional stories move beyond the page. That does not mean every story becomes an anime. It means creators have a stronger path from an original world to the formats and communities that fit it.
+
+## India-first
+
+Shyduck Tales is designed with Indian creators and readers in mind, with a foundation for:
+
+**English · Hindi · Telugu · Tamil · Kannada · Malayalam · Marathi · Bengali · Gujarati · Punjabi · more to come**
+
+Language support, readable typography, affordable access patterns and local creator ecosystems should be treated as product foundations rather than late-stage localization work.
+
+## Screenshots
+
+Actual product screenshots will be added as the application surfaces are implemented. No screenshots are fabricated in this README.
+
+Planned asset directory:
+
+```text
+docs/assets/
+├── home.png
+├── discover.png
+├── story.png
+├── reader.png
+├── writer-studio.png
+├── editor.png
+├── profile.png
+├── community.png
+└── admin.png
+```
+
+When available, images can be embedded with GitHub-compatible local paths:
+
+```md
+![Story discovery](./docs/assets/discover.png)
+```
+
+## The Shyduck
+
+Shyduck is the friendly visual identity of the platform: cute, mysterious, creative and premium. The mascot should make the product feel welcoming without making the experience childish or distracting from the work of the writer.
+
+<p align="center"><em>Mascot artwork placeholder — add an approved local asset under <code>docs/assets/</code> when available.</em></p>
+
+## Become a writer
+
+The creator journey starts simply: bring an idea, shape it into chapters, publish at your own pace and find the readers who want to stay in that world.
+
+The writer studio, analytics and community tools are planned product surfaces and will be documented here as they become real, testable features.
+
+## Contributing
+
+Contributions are welcome as the product takes shape.
+
+1. Fork the repository.
+2. Create a focused feature branch.
+3. Make and document your changes.
+4. Run the relevant checks available in the repository.
+5. Commit with a clear message.
+6. Push your branch.
+7. Open a pull request with context and screenshots for visual changes.
+
+Contribution guidelines will be formalized as the application architecture and test suite are introduced.
+
+## License
+
+License to be determined.
+
+## Support the project
+
+If you believe stories deserve better places to live, consider [starring the repository](https://github.com/Mannish2323/shyduck) and sharing Shyduck Tales with other creators.
+
+[⭐ Star](https://github.com/Mannish2323/shyduck) · [🐛 Issues](https://github.com/Mannish2323/shyduck/issues) · [💡 Discussions](https://github.com/Mannish2323/shyduck/discussions)
+
+<br />
 
 <div align="center">
 
-## 🎯 Long-Term Goal
+## Every great world begins with a story.
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&duration=3000&pause=1000&color=F0E68C&center=true&vCenter=true&repeat=true&width=600&height=50&lines=A+unified+platform+where+anyone+can...;Learn+a+skill+→+Practice+it+→+Build+with+it;Connect+→+Get+Feedback+→+Teach+Others;Keep+Growing+🌱+→+🌳" alt="Goal Typing" />
+# 🦆 Shyduck Tales
 
-<br/><br/>
+### Write. Publish. Discover. Read. Build a World.
 
-## 🦆 Why Shyduck?
-
-Because learning doesn't have to be boring.
-
-<br/>
-
-![Education](https://img.shields.io/badge/Education-58a6ff?style=for-the-badge&labelColor=0d1117)
-![+](https://img.shields.io/badge/+-white?style=for-the-badge&labelColor=0d1117)
-![AI](https://img.shields.io/badge/AI-3fb950?style=for-the-badge&labelColor=0d1117)
-![+](https://img.shields.io/badge/+-white?style=for-the-badge&labelColor=0d1117)
-![Practice](https://img.shields.io/badge/Practice-f78166?style=for-the-badge&labelColor=0d1117)
-![+](https://img.shields.io/badge/+-white?style=for-the-badge&labelColor=0d1117)
-![Projects](https://img.shields.io/badge/Projects-a371f7?style=for-the-badge&labelColor=0d1117)
-![+](https://img.shields.io/badge/+-white?style=for-the-badge&labelColor=0d1117)
-![Community](https://img.shields.io/badge/Community-f0e68c?style=for-the-badge&labelColor=0d1117)
-![+](https://img.shields.io/badge/+-white?style=for-the-badge&labelColor=0d1117)
-![Gamification](https://img.shields.io/badge/Gamification-ff6b6b?style=for-the-badge&labelColor=0d1117)
-![=](https://img.shields.io/badge/=-white?style=for-the-badge&labelColor=0d1117)
-![SHYDUCK](https://img.shields.io/badge/🦆_SHYDUCK-d2a8ff?style=for-the-badge&labelColor=0d1117)
-
-<br/><br/>
-
----
-
-### 🚧 Status: Early Development
-
-Shyduck is currently under active development.
-The architecture, UX, UI, AI systems, learning engine, community platform, and teacher ecosystem are being developed incrementally.
-
----
-
-### 📄 License
-
-License will be defined before the first public release.
-
----
-
-<br/>
-
-**Built with ❤️ by the Shyduck Team**
-
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=24&duration=4000&pause=2000&color=58A6FF&center=true&vCenter=true&repeat=true&width=500&height=50&lines=🦆+Shyduck;Learn+Anything.;Practice+Everything.;Build+Together." alt="Footer Typing" />
-
-<br/>
-
-[![Star This Repo](https://img.shields.io/badge/⭐_Star_This_Repo-f0e68c?style=for-the-badge&labelColor=0d1117)](https://github.com/Mannish2323/shyduck)
-[![Report Bug](https://img.shields.io/badge/🐛_Report_Bug-ff6b6b?style=for-the-badge&labelColor=0d1117)](https://github.com/Mannish2323/shyduck/issues)
-[![Request Feature](https://img.shields.io/badge/✨_Request_Feature-a371f7?style=for-the-badge&labelColor=0d1117)](https://github.com/Mannish2323/shyduck/issues)
+> **Stories deserve worlds.**
 
 </div>
-
-<!-- Animated Footer Wave -->
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:1a1b27,100:0d1117&height=120&section=footer" />
