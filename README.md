@@ -191,7 +191,7 @@ The platform architecture is intended to provide a foundation for original-work 
 
 ### Current prototype stack
 
-The repository currently contains a framework-free prototype using HTML, CSS, JavaScript, local image assets and browser-native interactions. The intended product stack above is a roadmap direction, not an assertion about the current implementation.
+The repository now contains a runnable Next.js/TypeScript product foundation. Supabase, persistence and production authentication remain roadmap work.
 
 ## Architecture
 
@@ -418,24 +418,27 @@ The product is intended to support:
 
 ## Current repository state
 
-The repository currently contains the product README and Git ignore configuration. The application implementation has not yet been checked in here.
+The repository contains a runnable Next.js/TypeScript foundation with fictional demo content and these routes:
 
-The following are not yet implemented in this repository: a Next.js application, Supabase integration, database migrations, real authentication, writer routes, reader routes, creator analytics, community services, visual assets and automated test scripts.
+| Route | Purpose |
+|---|---|
+| `/` | Editorial home with featured stories and genre entry points |
+| `/discover` | Search-shaped discovery surface |
+| `/stories/[slug]` | Story hero, metadata and chapter list |
+| `/stories/[slug]/chapters/[chapter]` | Focused chapter reader |
+| `/writer` and `/writer/new` | Writer studio and create-story preview |
+| `/admin` | Admin operations preview shell |
+
+Deferred features include Supabase integration, migrations, real authentication, persistent reading progress, writer autosave, analytics, community, moderation, media management and automated end-to-end tests.
 
 ## Getting started
 
-This repository currently has no `package.json` or npm scripts. There is no runnable application checked in yet:
+Install the checked-in Next.js application:
 
 ```bash
 git clone <repository-url>
 cd shyduck
 ```
-
-The commands above only clone the repository. The application setup below is planned for the Next.js implementation.
-
-### Planned application setup
-
-When the Next.js application is introduced, the intended workflow will be:
 
 ```bash
 npm install
@@ -446,11 +449,9 @@ npm run dev
 http://localhost:3000
 ```
 
-Do not run those commands against the current repository expecting npm scripts to exist yet.
-
 ### Planned local environment
 
-Actual Supabase values must be supplied locally when that integration is implemented. Never commit secrets.
+Supabase values are not required for the current demo routes. They will be required when persistence and authentication are connected. Never commit secrets.
 
 ```env
 NEXT_PUBLIC_SUPABASE_URL=
@@ -473,14 +474,20 @@ These are architecture requirements for the product, not controls that the curre
 
 ## Testing
 
-No automated test scripts are currently defined. Once the application stack exists, the intended commands are:
+TypeScript validation currently passes with:
+
+```bash
+npx tsc --noEmit
+```
+
+Automated test scripts are planned for the persistence-backed product:
 
 ```bash
 npm run test
 npm run test:e2e
 ```
 
-They should be added to `package.json` before being presented as runnable repository commands.
+They should be added to `package.json` with the test suite before being presented as runnable repository commands.
 
 ## Roadmap
 
