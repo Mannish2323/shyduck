@@ -9,41 +9,68 @@ interface ShyduckMascotProps {
 }
 
 export function ShyduckMascot({ size = 48, className = '', mood = 'curious' }: ShyduckMascotProps) {
+  const uniqueId = React.useId();
+
   return (
     <div
-      className={`inline-flex items-center justify-center relative select-none ${className}`}
+      className={`inline-flex items-center justify-center relative select-none group/mascot ${className}`}
       style={{ width: size, height: size }}
       aria-label="Shyduck Mascot"
     >
+      {/* Sparkle particles on hover */}
+      <div className="absolute inset-0 pointer-events-none opacity-0 group-hover/mascot:opacity-100 transition-opacity duration-500">
+        {[
+          { top: '-8%', left: '10%', delay: '0s', size: 3 },
+          { top: '5%', right: '-5%', delay: '0.3s', size: 4 },
+          { bottom: '10%', right: '0%', delay: '0.6s', size: 3 },
+          { top: '-5%', right: '20%', delay: '0.9s', size: 2 },
+        ].map((spark, i) => (
+          <span
+            key={i}
+            className="absolute sparkle-anim"
+            style={{
+              ...spark,
+              width: spark.size,
+              height: spark.size,
+              borderRadius: '50%',
+              background: '#e9b65a',
+              animationDelay: spark.delay,
+              boxShadow: '0 0 4px #e9b65a',
+            }}
+          />
+        ))}
+      </div>
+
       <svg
         width={size}
         height={size}
         viewBox="0 0 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        className="transition-transform duration-300 group-hover/mascot:scale-110"
       >
         <defs>
           {/* Golden Body Gradient */}
-          <linearGradient id="duckGold" x1="20" y1="15" x2="80" y2="85" gradientUnits="userSpaceOnUse">
+          <linearGradient id={`duckGold-${uniqueId}`} x1="20" y1="15" x2="80" y2="85" gradientUnits="userSpaceOnUse">
             <stop offset="0%" stopColor="#fde074" />
             <stop offset="50%" stopColor="#eab308" />
             <stop offset="100%" stopColor="#ca8a04" />
           </linearGradient>
 
           {/* Cozy Cheeks */}
-          <radialGradient id="duckBlush" cx="50%" cy="50%" r="50%">
+          <radialGradient id={`duckBlush-${uniqueId}`} cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="#f43f5e" stopOpacity="0.5" />
             <stop offset="100%" stopColor="#f43f5e" stopOpacity="0" />
           </radialGradient>
 
           {/* Beak Gradient */}
-          <linearGradient id="duckBeak" x1="0" y1="0" x2="100%" y2="100%">
+          <linearGradient id={`duckBeak-${uniqueId}`} x1="0" y1="0" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#fb923c" />
             <stop offset="100%" stopColor="#ea580c" />
           </linearGradient>
 
           {/* Midnight Cap / Hood for writer vibe */}
-          <linearGradient id="duckHood" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={`duckHood-${uniqueId}`} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#312e81" />
             <stop offset="100%" stopColor="#1e1b4b" />
           </linearGradient>
@@ -53,7 +80,7 @@ export function ShyduckMascot({ size = 48, className = '', mood = 'curious' }: S
         <circle cx="50" cy="50" r="42" fill="#eab308" opacity="0.12" filter="blur(6px)" />
 
         {/* Body */}
-        <ellipse cx="50" cy="54" rx="34" ry="30" fill="url(#duckGold)" />
+        <ellipse cx="50" cy="54" rx="34" ry="30" fill={`url(#duckGold-${uniqueId})`} />
 
         {/* Shy Wing */}
         <path
@@ -63,7 +90,7 @@ export function ShyduckMascot({ size = 48, className = '', mood = 'curious' }: S
         />
 
         {/* Head */}
-        <circle cx="50" cy="38" r="24" fill="url(#duckGold)" />
+        <circle cx="50" cy="38" r="24" fill={`url(#duckGold-${uniqueId})`} />
 
         {/* Cute Little Writer Feather / Cowlick */}
         <path
@@ -72,8 +99,8 @@ export function ShyduckMascot({ size = 48, className = '', mood = 'curious' }: S
         />
 
         {/* Shy Blushing Cheeks */}
-        <circle cx="34" cy="44" r="6" fill="url(#duckBlush)" />
-        <circle cx="66" cy="44" r="6" fill="url(#duckBlush)" />
+        <circle cx="34" cy="44" r="6" fill={`url(#duckBlush-${uniqueId})`} />
+        <circle cx="66" cy="44" r="6" fill={`url(#duckBlush-${uniqueId})`} />
 
         {/* Eyes based on mood */}
         {mood === 'sleepy' ? (
@@ -97,13 +124,14 @@ export function ShyduckMascot({ size = 48, className = '', mood = 'curious' }: S
         )}
 
         {/* Cute Rounded Beak */}
-        <ellipse cx="50" cy="45" rx="7.5" ry="4.5" fill="url(#duckBeak)" />
+        <ellipse cx="50" cy="45" rx="7.5" ry="4.5" fill={`url(#duckBeak-${uniqueId})`} />
 
         {/* Star Sparkle near wing */}
         <path
           d="M74 30 L76 34 L80 36 L76 38 L74 42 L72 38 L68 36 L72 34 Z"
           fill="#fef08a"
           opacity="0.85"
+          className="sparkle-anim"
         />
       </svg>
     </div>

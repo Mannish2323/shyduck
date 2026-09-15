@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Story } from '@/lib/types';
 import { useShyduck } from '@/lib/store';
 import { Bookmark, Star, BookOpen, Eye } from 'lucide-react';
@@ -15,27 +16,46 @@ interface StoryCardProps {
 export function StoryCard({ story, variant = 'standard', rank }: StoryCardProps) {
   const { isBookmarked, toggleBookmark } = useShyduck();
   const bookmarked = isBookmarked(story.slug);
+  const [justBookmarked, setJustBookmarked] = useState(false);
 
   const handleBookmarkClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     toggleBookmark(story.slug);
+    if (!bookmarked) {
+      setJustBookmarked(true);
+      setTimeout(() => setJustBookmarked(false), 400);
+    }
   };
 
   // Trending Ranked Card (1 to 5)
   if (variant === 'trending') {
+    const rankColors: Record<number, string> = {
+      1: '#e9b65a',
+      2: '#c0c0c0',
+      3: '#cd7f32',
+    };
+    const rankColor = rank ? rankColors[rank] || 'var(--text-subtle)' : 'var(--text-subtle)';
+    const isTop3 = rank !== undefined && rank <= 3;
+
     return (
       <Link
         href={`/stories/${story.slug}`}
-        className="card-panel card-panel-hover"
+        className="card-panel card-panel-hover group"
         style={{
           display: 'flex',
           alignItems: 'center',
           gap: '20px',
           padding: '16px 20px',
-          position: 'relative'
+          position: 'relative',
+          ...(rank === 1 ? { borderColor: 'rgba(233, 182, 90, 0.25)' } : {})
         }}
       >
+        {/* Rank glow for #1 */}
+        {rank === 1 && (
+          <div className="absolute inset-0 rounded-[inherit] bg-gradient-to-r from-[#e9b65a]/5 to-transparent pointer-events-none" />
+        )}
+
         {rank !== undefined && (
           <div
             style={{
@@ -43,10 +63,13 @@ export function StoryCard({ story, variant = 'standard', rank }: StoryCardProps)
               fontSize: '2.5rem',
               fontWeight: 700,
               lineHeight: 1,
-              color: rank === 1 ? 'var(--gold)' : rank === 2 ? '#c0c0c0' : rank === 3 ? '#cd7f32' : 'var(--text-subtle)',
+              color: rankColor,
               minWidth: '36px',
-              textAlign: 'center'
+              textAlign: 'center',
+              textShadow: isTop3 ? `0 0 20px ${rankColor}30` : 'none',
+              transition: 'transform 0.3s, text-shadow 0.3s',
             }}
+            className="group-hover:scale-110"
           >
             {rank}
           </div>
@@ -54,7 +77,7 @@ export function StoryCard({ story, variant = 'standard', rank }: StoryCardProps)
 
         {/* Mini Cover Art */}
         <div
-          className={`cover-${story.coverStyle}`}
+          className={`cover-${story.coverStyle} cover-shimmer`}
           style={{
             width: '64px',
             height: '84px',
@@ -63,7 +86,8 @@ export function StoryCard({ story, variant = 'standard', rank }: StoryCardProps)
             display: 'flex',
             alignItems: 'flex-end',
             padding: '6px',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+            boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+            transition: 'transform 0.3s',
           }}
         >
           <span style={{ fontSize: '0.65rem', fontWeight: 700, opacity: 0.9, lineHeight: 1.1 }}>
@@ -107,7 +131,7 @@ export function StoryCard({ story, variant = 'standard', rank }: StoryCardProps)
         {/* Bookmark Trigger */}
         <button
           onClick={handleBookmarkClick}
-          className="btn-icon"
+          className={`btn-icon ${justBookmarked ? 'bookmark-pop' : ''}`}
           style={{
             color: bookmarked ? 'var(--gold)' : 'var(--text-subtle)',
             backgroundColor: bookmarked ? 'var(--gold-subtle)' : 'transparent',
@@ -125,7 +149,7 @@ export function StoryCard({ story, variant = 'standard', rank }: StoryCardProps)
   if (variant === 'featured') {
     return (
       <div
-        className="card-panel card-panel-hover"
+        className="card-panel card-panel-hover card-gradient-border group"
         style={{
           display: 'grid',
           gridTemplateColumns: 'minmax(280px, 340px) 1fr',
@@ -136,9 +160,12 @@ export function StoryCard({ story, variant = 'standard', rank }: StoryCardProps)
           overflow: 'hidden'
         }}
       >
+        {/* Ambient hover glow */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#e9b65a]/5 via-transparent to-[#9b91e8]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-[inherit]" />
+
         <Link href={`/stories/${story.slug}`}>
           <div
-            className={`cover-${story.coverStyle}`}
+            className={`cover-${story.coverStyle} cover-shimmer`}
             style={{
               height: '380px',
               borderRadius: 'var(--radius-md)',
@@ -147,11 +174,12 @@ export function StoryCard({ story, variant = 'standard', rank }: StoryCardProps)
               flexDirection: 'column',
               justifyContent: 'flex-end',
               boxShadow: '0 16px 40px rgba(0,0,0,0.5)',
-              position: 'relative'
+              position: 'relative',
+              transition: 'transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)',
             }}
           >
             <span className="badge badge-gold" style={{ position: 'absolute', top: '20px', left: '20px' }}>
-              ★ Editor’s Choice
+              ★ Editor&apos;s Choice
             </span>
             <div
               style={{
@@ -168,7 +196,7 @@ export function StoryCard({ story, variant = 'standard', rank }: StoryCardProps)
           </div>
         </Link>
 
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', zIndex: 1 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px', flexWrap: 'wrap' }}>
             <span className="badge badge-gold">{story.genre}</span>
             <span className="badge">{story.status}</span>
@@ -199,7 +227,8 @@ export function StoryCard({ story, variant = 'standard', rank }: StoryCardProps)
             <img
               src={story.author.avatar}
               alt={story.author.name}
-              style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover' }}
+              className="avatar-ring-hover"
+              style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover', border: '2px solid transparent', transition: 'border-color 0.3s' }}
             />
             <div>
               <Link href={`/authors/${story.author.username}`} style={{ fontWeight: 600, fontSize: '0.9rem' }}>
@@ -217,7 +246,7 @@ export function StoryCard({ story, variant = 'standard', rank }: StoryCardProps)
             </Link>
             <button
               onClick={handleBookmarkClick}
-              className={`btn ${bookmarked ? 'btn-outline' : 'btn-secondary'}`}
+              className={`btn ${bookmarked ? 'btn-outline' : 'btn-secondary'} ${justBookmarked ? 'bookmark-pop' : ''}`}
             >
               <Bookmark size={16} fill={bookmarked ? 'currentColor' : 'none'} />
               {bookmarked ? 'Bookmarked' : 'Bookmark'}
@@ -230,17 +259,18 @@ export function StoryCard({ story, variant = 'standard', rank }: StoryCardProps)
 
   // Standard Grid Story Card (Default)
   return (
-    <div className="card-panel card-panel-hover" style={{ padding: '0', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+    <div className="card-panel card-panel-hover group" style={{ padding: '0', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
       <Link href={`/stories/${story.slug}`} style={{ position: 'relative', display: 'block' }}>
         <div
-          className={`cover-${story.coverStyle}`}
+          className={`cover-${story.coverStyle} cover-shimmer`}
           style={{
             height: '210px',
             padding: '18px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            position: 'relative'
+            position: 'relative',
+            transition: 'transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)',
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -249,13 +279,14 @@ export function StoryCard({ story, variant = 'standard', rank }: StoryCardProps)
             </span>
             <button
               onClick={handleBookmarkClick}
-              className="btn-icon"
+              className={`btn-icon ${justBookmarked ? 'bookmark-pop' : ''}`}
               style={{
                 width: '32px',
                 height: '32px',
                 backgroundColor: 'rgba(10, 11, 20, 0.65)',
                 color: bookmarked ? 'var(--gold)' : '#ffffff',
-                borderColor: bookmarked ? 'var(--gold)' : 'rgba(255,255,255,0.2)'
+                borderColor: bookmarked ? 'var(--gold)' : 'rgba(255,255,255,0.2)',
+                backdropFilter: 'blur(4px)',
               }}
               aria-label={bookmarked ? 'Remove bookmark' : 'Bookmark'}
             >

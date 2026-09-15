@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useShyduck } from '@/lib/store';
 import { ShyduckMascot } from './shyduck-mascot';
 import {
@@ -32,6 +33,21 @@ export function SiteHeader() {
     logout
   } = useShyduck();
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    if (!profileMenuOpen) return;
+    const handleClick = () => setProfileMenuOpen(false);
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, [profileMenuOpen]);
 
   const navItems = [
     { href: '/', label: 'Home', icon: Home },
@@ -53,11 +69,11 @@ export function SiteHeader() {
         position: 'sticky',
         top: 0,
         zIndex: 50,
-        backgroundColor: 'var(--bg-overlay)',
-        borderBottom: '1px solid var(--line)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        transition: 'background-color 0.2s'
+        backgroundColor: scrolled ? 'rgba(10, 11, 20, 0.88)' : 'var(--bg-overlay)',
+        borderBottom: `1px solid ${scrolled ? 'rgba(233, 182, 90, 0.08)' : 'var(--line)'}`,
+        backdropFilter: 'blur(20px) saturate(1.5)',
+        WebkitBackdropFilter: 'blur(20px) saturate(1.5)',
+        transition: 'all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)',
       }}
     >
       <div
@@ -66,13 +82,15 @@ export function SiteHeader() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          height: '72px',
-          gap: '24px'
+          height: scrolled ? '60px' : '72px',
+          gap: '24px',
+          transition: 'height 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)',
         }}
       >
         {/* Left: Brand Logo & Mascot */}
         <Link
           href="/"
+          className="group"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -81,17 +99,20 @@ export function SiteHeader() {
             flexShrink: 0
           }}
         >
-          <ShyduckMascot size={36} mood="curious" />
+          <div className="transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+            <ShyduckMascot size={scrolled ? 30 : 36} mood="curious" />
+          </div>
           <div>
             <span
               style={{
                 fontFamily: "'Manrope', sans-serif",
                 fontWeight: 800,
-                fontSize: '1.15rem',
+                fontSize: scrolled ? '1rem' : '1.15rem',
                 letterSpacing: '-0.04em',
                 color: 'var(--text-main)',
                 display: 'block',
-                lineHeight: 1
+                lineHeight: 1,
+                transition: 'font-size 0.3s',
               }}
             >
               SHYDUCK TALES
@@ -102,7 +123,11 @@ export function SiteHeader() {
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
                 color: 'var(--gold)',
-                fontWeight: 700
+                fontWeight: 700,
+                transition: 'opacity 0.3s',
+                opacity: scrolled ? 0 : 1,
+                maxHeight: scrolled ? 0 : '20px',
+                overflow: 'hidden',
               }}
             >
               Stories Deserve Worlds
@@ -116,7 +141,7 @@ export function SiteHeader() {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '6px'
+            gap: '4px'
           }}
           aria-label="Main Navigation"
         >
@@ -126,6 +151,7 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
+                className="nav-underline"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -145,7 +171,8 @@ export function SiteHeader() {
                     ? 'rgba(255,255,255,0.04)'
                     : 'transparent',
                   border: item.highlight && !isActive ? '1px solid var(--line-strong)' : '1px solid transparent',
-                  transition: 'all 0.15s'
+                  transition: 'all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1)',
+                  position: 'relative',
                 }}
               >
                 <item.icon size={15} />
@@ -177,7 +204,7 @@ export function SiteHeader() {
           {/* Command K Search Trigger */}
           <button
             onClick={openSearch}
-            className="desktop-only"
+            className="desktop-only group"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -188,11 +215,12 @@ export function SiteHeader() {
               border: '1px solid var(--line)',
               color: 'var(--text-muted)',
               fontSize: '0.82rem',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              transition: 'all 0.2s',
             }}
             aria-label="Search stories and authors"
           >
-            <Search size={15} color="var(--gold)" />
+            <Search size={15} color="var(--gold)" className="transition-transform group-hover:scale-110" />
             <span>Search...</span>
             <span
               style={{
@@ -256,7 +284,8 @@ export function SiteHeader() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  border: '2px solid var(--bg-surface)'
+                  border: '2px solid var(--bg-surface)',
+                  animation: 'pulseGlow 2s ease-in-out infinite',
                 }}
               >
                 {unreadNotificationsCount}
@@ -276,14 +305,19 @@ export function SiteHeader() {
           {/* Profile & Role Switcher Dropdown */}
           <div style={{ position: 'relative' }}>
             <button
-              onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setProfileMenuOpen(!profileMenuOpen);
+              }}
+              className="group"
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
                 padding: '4px',
                 borderRadius: 'var(--radius-full)',
-                border: '1px solid var(--line)'
+                border: '1px solid var(--line)',
+                transition: 'border-color 0.2s',
               }}
               aria-expanded={profileMenuOpen}
               aria-label="User Account Menu"
@@ -291,126 +325,138 @@ export function SiteHeader() {
               <img
                 src={user?.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100'}
                 alt={user?.name || 'User'}
+                className="avatar-ring-hover"
                 style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover' }}
               />
-              <ChevronDown size={14} color="var(--text-muted)" style={{ marginRight: '4px' }} />
+              <ChevronDown
+                size={14}
+                color="var(--text-muted)"
+                style={{
+                  marginRight: '4px',
+                  transition: 'transform 0.2s',
+                  transform: profileMenuOpen ? 'rotate(180deg)' : 'rotate(0)',
+                }}
+              />
             </button>
 
-            {profileMenuOpen && (
-              <div
-                style={{
-                  position: 'absolute',
-                  top: '115%',
-                  right: 0,
-                  width: '240px',
-                  backgroundColor: 'var(--bg-card)',
-                  border: '1px solid var(--line-strong)',
-                  borderRadius: 'var(--radius-md)',
-                  boxShadow: 'var(--shadow-floating)',
-                  padding: '8px',
-                  zIndex: 100,
-                  animation: 'fadeIn 0.15s ease-out'
-                }}
-              >
-                <div style={{ padding: '10px 12px', borderBottom: '1px solid var(--line)' }}>
-                  <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>{user?.name || 'Guest User'}</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                    {user ? `@${user.username}` : 'Not signed in'}
+            <AnimatePresence>
+              {profileMenuOpen && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, y: -5 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: -5 }}
+                  transition={{ duration: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+                  style={{
+                    position: 'absolute',
+                    top: '115%',
+                    right: 0,
+                    width: '240px',
+                    backgroundColor: 'var(--bg-card)',
+                    border: '1px solid var(--line-strong)',
+                    borderRadius: 'var(--radius-md)',
+                    boxShadow: 'var(--shadow-floating)',
+                    padding: '8px',
+                    zIndex: 100,
+                  }}
+                >
+                  <div style={{ padding: '10px 12px', borderBottom: '1px solid var(--line)' }}>
+                    <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>{user?.name || 'Guest User'}</div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                      {user ? `@${user.username}` : 'Not signed in'}
+                    </div>
+                    {user && (
+                      <span className="badge badge-gold" style={{ marginTop: '6px', fontSize: '0.68rem' }}>
+                        Role: {user.role.toUpperCase()}
+                      </span>
+                    )}
                   </div>
-                  {user && (
-                    <span className="badge badge-gold" style={{ marginTop: '6px', fontSize: '0.68rem' }}>
-                      Role: {user.role.toUpperCase()}
-                    </span>
-                  )}
-                </div>
 
-                <div style={{ padding: '4px 0' }}>
-                  <Link
-                    href={`/authors/${user?.username || 'manish_writer'}`}
-                    onClick={() => setProfileMenuOpen(false)}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '8px 12px',
-                      fontSize: '0.84rem',
-                      color: 'var(--text-main)',
-                      borderRadius: '6px'
-                    }}
-                  >
-                    Public Profile
-                  </Link>
+                  <div style={{ padding: '4px 0' }}>
+                    {[
+                      { href: `/authors/${user?.username || 'manish_writer'}`, label: 'Public Profile' },
+                      { href: '/write', label: 'Writer Studio' },
+                    ].map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setProfileMenuOpen(false)}
+                        className="hover:bg-white/5"
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          padding: '8px 12px',
+                          fontSize: '0.84rem',
+                          color: 'var(--text-main)',
+                          borderRadius: '6px',
+                          transition: 'background-color 0.15s',
+                        }}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
 
-                  <Link
-                    href="/write"
-                    onClick={() => setProfileMenuOpen(false)}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '8px 12px',
-                      fontSize: '0.84rem',
-                      color: 'var(--text-main)',
-                      borderRadius: '6px'
-                    }}
-                  >
-                    Writer Studio
-                  </Link>
+                    <Link
+                      href="/admin"
+                      onClick={() => setProfileMenuOpen(false)}
+                      className="hover:bg-white/5"
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '8px 12px',
+                        fontSize: '0.84rem',
+                        color: 'var(--lavender)',
+                        borderRadius: '6px',
+                        transition: 'background-color 0.15s',
+                      }}
+                    >
+                      <Shield size={14} /> Admin Console
+                    </Link>
 
-                  <Link
-                    href="/admin"
-                    onClick={() => setProfileMenuOpen(false)}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '8px 12px',
-                      fontSize: '0.84rem',
-                      color: 'var(--lavender)',
-                      borderRadius: '6px'
-                    }}
-                  >
-                    <Shield size={14} /> Admin Console
-                  </Link>
+                    <Link
+                      href="/settings"
+                      onClick={() => setProfileMenuOpen(false)}
+                      className="hover:bg-white/5"
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '8px 12px',
+                        fontSize: '0.84rem',
+                        color: 'var(--text-main)',
+                        borderRadius: '6px',
+                        transition: 'background-color 0.15s',
+                      }}
+                    >
+                      Preferences & Themes
+                    </Link>
 
-                  <Link
-                    href="/settings"
-                    onClick={() => setProfileMenuOpen(false)}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '8px 12px',
-                      fontSize: '0.84rem',
-                      color: 'var(--text-main)',
-                      borderRadius: '6px'
-                    }}
-                  >
-                    Preferences & Themes
-                  </Link>
-
-                  <button
-                    onClick={() => {
-                      logout();
-                      setProfileMenuOpen(false);
-                    }}
-                    style={{
-                      width: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '8px 12px',
-                      fontSize: '0.84rem',
-                      color: '#ef4444',
-                      borderRadius: '6px',
-                      textAlign: 'left'
-                    }}
-                  >
-                    <LogOut size={14} /> Sign Out
-                  </button>
-                </div>
-              </div>
-            )}
+                    <button
+                      onClick={() => {
+                        logout();
+                        setProfileMenuOpen(false);
+                      }}
+                      className="hover:bg-red-500/10"
+                      style={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '8px 12px',
+                        fontSize: '0.84rem',
+                        color: '#ef4444',
+                        borderRadius: '6px',
+                        textAlign: 'left',
+                        transition: 'background-color 0.15s',
+                      }}
+                    >
+                      <LogOut size={14} /> Sign Out
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
